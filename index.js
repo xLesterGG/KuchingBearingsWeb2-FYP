@@ -76,7 +76,7 @@ socket.on("connection",(client)=>{
     var currentUser;
 
     // console.log(client.id);
-    console.log(Object.keys(socket.sockets.sockets));
+    // console.log(Object.keys(socket.sockets.sockets));
 
     client.on("getUser",()=>{
         if(currentUser == undefined){
@@ -530,8 +530,8 @@ socket.on("connection",(client)=>{
                 currentUser = user;
                 client.emit("redirectToInbox",user);
             }else{
-                console.log('logged out');
-                client.emit("redirectToLogin1");
+                // console.log('logged out');
+                // client.emit("redirectToLogin1");
             }
         });
 

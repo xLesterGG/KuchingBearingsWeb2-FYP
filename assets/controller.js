@@ -31,7 +31,6 @@ var socket= io.connect("http://localhost:3000");
 
 
 app.controller("loginCtrl",($scope,$state,$cookieStore)=>{
-
     if($cookieStore.get('kbLogged'))
     {
         $state.go('home.inbox');
@@ -95,7 +94,6 @@ app.controller("loginCtrl",($scope,$state,$cookieStore)=>{
 });
 
 app.controller("historyCtrl",($scope,inqService,userService)=>{
-
     $scope.orderByField = 'time';
     $scope.reverseSort = false;
 
@@ -160,13 +158,46 @@ app.controller("historyCtrl",($scope,inqService,userService)=>{
 
 });
 
-app.controller("chatCtrl",($scope, $stateParams, messageService,$state,inqService,userService,$cookieStore)=>{
+app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqService,userService,$cookieStore)=>{
+    window.onfocus = ()=>{
+        $scope.$apply();
+    }
 
     if($cookieStore.get('kbLogged'))
     {
         $state.go('home.inbox');
     }else{
         socket.emit("getUser");
+    }
+
+    $scope.abc= function logshit(){
+        console.log($cookieStore.get('kbLogged'));
+        // console.log("aaa");
+    }
+
+    $scope.$watch(function() {
+        return $cookieStore.get('kbLogged');
+    }, function(newValue) {
+        // $log.log('Cookie string: ' + $cookieStore.get('kbLogged'));
+        // var a = newValue;
+        // if(!a)
+        //     console.log(a);
+        if(!newValue){
+            window.location.href = "http://localhost:3000/#!/login";
+        }
+        // console.log('aaa');
+        // console.log(newValue);
+        // if(!newValue)
+        // {
+        //     window.location.href = "http://localhost/#!/login";
+        //     // window.location.reload();
+        // }
+
+    });
+
+
+    function tlogin(){
+        // $state.go('login');
     }
 
 
@@ -188,7 +219,9 @@ app.controller("chatCtrl",($scope, $stateParams, messageService,$state,inqServic
 
     $scope.logout = ()=>{
         $cookieStore.remove('kbLogged');
-        socket.emit("logoutUser");
+        // $log.log('Cookie string: ' + $cookieStore.get('kbLogged'));
+        // socket.emit("logoutUser");
+        $state.go('login');
     };
 
     $scope.rname = '';
