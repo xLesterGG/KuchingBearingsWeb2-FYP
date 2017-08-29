@@ -1,0 +1,55 @@
+    <div class="col-md-3" id="cont" >
+        <h1 id="head"> Inbox </h1>
+        <div id="inqs">
+            <ul class="people" >
+                <li class="person" data-ng-repeat="inq in allInquiryList | orderObjectBy:'lastMesage.messageTime':true track by $index " data-chat="person{{$index}}" ui-sref-active="active" data-ui-sref="home.inbox.chat({id: inq.inquiryID})" data-ng-click="updateRead(inq)">
+
+                <!-- <li class="person" data-ng-repeat="inq in allInquiryList track by $index" data-chat="person{{$index}}" ui-sref-active="active"  data-ng-click="updateRead(inq)"> -->
+
+                    <img src="http://img.clipartall.com/user-image-user-clipart-276_298.png" alt="" />
+                    <!-- <span class="name"> Conversation name is    {{inq.inquiryName}}</span> -->
+                    <span class="name">{{inq.inquiryName}}</span>
+                    <span class="time">{{inq.lastMessage.messageTime | date: 'hh:mm a' }}</span>
+
+                    <div data-ng-show="(inq.lastMessage.messageRead==false) && (inq.lastMessage.messageUser!='admin')">
+                        <span class="preview">
+                          <strong>{{inq.lastMessage.messageText}}</strong>
+                        </span>
+
+                    </div>
+
+                    <div data-ng-show="inq.lastMessage.messageRead==true || inq.lastMessage.messageUser=='admin'">
+                        <span class="preview">{{inq.lastMessage.messageText}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-9 col-lg-9 chats">
+        <div data-ui-view >
+            <!-- <p align="center" style="padding-top: 150px;">
+                Click on one of the conversations on the left
+            </p> -->
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('.person').mousedown(function(){
+                // alert('wew');
+                if ($(this).hasClass('.active')) {
+                    return false;
+                } else {
+                    var findChat = $(this).attr('data-chat');
+                    var personName = $(this).find('.name').text();
+                    // $('.right .top .name').html(personName);
+                    $('.chat').removeClass('active-chat');
+                    $('.person').removeClass('active');
+                    $(this).addClass('active');
+                    $('.chat[data-chat = '+findChat+']').addClass('active-chat');
+                    console.log(findChat);
+                }
+            });
+        });
+    </script>

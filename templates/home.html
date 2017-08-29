@@ -1,0 +1,47 @@
+<div data-ng-controller="chatCtrl">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container nav">
+            <div class="navbar-header">
+                <button type="button?" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#MenuOnTop" aria-expended="false">
+                    <span class="sr-only"> Toggle Navigation </span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#!/home/inbox"> KuchingBearingsOS </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="MenuOnTop">
+                <ul class="nav navbar-nav">
+
+                    <!-- <li><a data-ui-serf="home.admin"> Admin </a></li> -->
+                    <li><a data-ui-sref="home.inbox"> Inbox </a></li>
+
+                <!-- <li class="dropdown">
+                <a data-ui-sref="home.inbox" ui-sref-active="active" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Inbox <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                <li><a data-ui-sref="home.inbox.Read"> Read </a></li>
+                <li><a data-ui-sref="home.inbox.Unread"> Unread </a> </li>
+                <li><a data-ui-sref="home.inbox.Paid"> Paid </a></li>
+                </ul>
+                </li> -->
+
+                    <li><a href="#!/home/history"> Payments </a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a data-ng-click="logout()">Log Out </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main">
+        <div class="row" id="box">
+
+            <div ui-view></div>
+        </div>
+    </div>
+</div>

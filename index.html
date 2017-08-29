@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myApp">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+        <script src="/socket.io/socket.io.js"></script>
+
+    </head>
+    <body>
+        <div class="container" data-ng-controller="chatCtrl">
+            <h1>Bearings Thingy</h1>
+
+            <div class="row" data-ng-hide="hideName">
+                <div class="col-md-2 form-group">
+                    <label for="name">Your name</label>
+                    <input type="text" class="form-control" id="name" data-ng-model="username"/>
+
+                    <br />
+                    <button type="button" class="btn btn-primary btn-md" data-ng-click="joinServer(username)">Join Server</button>
+
+                </div>
+            </div>
+
+            <div class="row" data-ng-hide="hideRoom">
+                <div class="col-md-3 form-group">
+                    <label for="rname">Room name</label>
+                    <input type="text" class="form-control" id="rname" data-ng-model="rname"/>
+
+                    <br>
+                    <button type="button" class="btn btn-primary btn-md" data-ng-click="createRoom()">Create</button>
+
+                    <button type="button" data-ng-click="joinRoom()" class="btn btn-info"> Join</button>
+                </div>
+            </div>
+
+            <ul>
+                <li data-ng-repeat="room in allRoomList track by $index">
+                    {{room.roomName}}           ( {{room.roomID}} )
+                </li>
+            </ul>
+
+
+            <br><br>
+
+            <div class="row" data-ng-hide="hideSend">
+                <div class="col-md-4 form-group">
+
+                    <div class="form-group">
+                        <label for="sel1">Joined Channel list:</label>
+                        <select class="form-control" data-ng-model="selectedChannel">
+                            <option data-ng-repeat="c in joinedRooms" value="{{c.roomID}}">
+                                {{c.roomName}}
+                            </option>>
+
+                            </option>
+                        </select>
+                    </div>
+
+
+
+                    <label for="message">Message</label>
+                    <input type="text" data-ng-model="inputMessage" class="form-control" id="message" />
+
+                    <br>
+                    <button type="button" data-ng-click="sendMessage()" class="btn btn-primary btn-md">Send</button>
+                </div>
+            </div>
+
+            <label for="sel1">Filter Channel list:</label>
+            <select class="form-control" data-ng-model="filterRoom" data-ng-change="updateFilter()">
+
+                <option data-ng-repeat="c in joinedRooms" value="{{c.roomID}}" >
+                    {{c.roomName}}
+                </option>
+                <option value="clear">
+                    clear
+                </option>
+            </select>
+
+            filter by {{filterChannel}}
+
+            <div class="row">
+                <div class="col-md-10">
+                    <ul>
+                        <li data-ng-repeat="msg in messages| filter: filterR  track by $index ">
+                            {{msg.msg}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="/js/firebase.js"></script>
+        <script src="/js/jquery.js"></script>
+        <script src="/js/bootstrap.js"></script>
+        <script src="/js/angular.js"></script>
+        <script src="/js/controller.js"></script>
+        <script src="/js/angular-ui-router.js"></script>
+
+    </body>
+</html>
