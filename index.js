@@ -264,6 +264,7 @@ socket.on("connection",(client)=>{
     client.on("sendMessage",(message,inqOwner)=>{ // message, room id,
         var inq = inquiries[message.dest]; // inquiry id
         console.log('sending');
+        console.log()
 
         if(inq== null){
             // do something
@@ -299,7 +300,7 @@ socket.on("connection",(client)=>{
 
                     // console.log(a.key);
 
-                    database.ref('/adconversations/'+inqOwner+'/'+inq.inquiryID+'/'+a.key).set({
+                    database.ref('/adconversations/'+inqOwner+'/'+inq.inquiryID+'?'+inq.inquiryName+'/'+a.key).set({
                         messageText: msg.msg,
                         messageTime : parseInt(new Date().getTime()),
                         messageUser : msg.sender,

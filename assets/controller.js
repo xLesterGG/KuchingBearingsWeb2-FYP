@@ -152,7 +152,7 @@ app.controller("historyCtrl",($scope,inqService,userService)=>{
 
             }
 
-            console.log($scope.payments);
+            // console.log($scope.payments);
         }
     };
 
@@ -163,15 +163,20 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
         $scope.$apply();
     }
 
-    if($cookieStore.get('kbLogged'))
-    {
-        // $state.go('home.inbox');
-        var a = window.location.pathname.split( '/' );
 
-        console.log(a);
-    }else{
+    if(!$cookieStore.get('kbLogged')){
         socket.emit("getUser");
     }
+
+    // if($cookieStore.get('kbLogged'))
+    // {
+    //     var a = window.location.href.trim().split("/");
+    //     console.log(a.length);
+    //     console.log(a);
+    //
+    // }else{
+    //     socket.emit("getUser");
+    // }
 
     $scope.abc= function logshit(){
         console.log($cookieStore.get('kbLogged'));
