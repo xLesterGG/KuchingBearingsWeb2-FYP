@@ -165,7 +165,10 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
 
     if($cookieStore.get('kbLogged'))
     {
-        $state.go('home.inbox');
+        // $state.go('home.inbox');
+        var a = window.location.pathname.split( '/' );
+
+        console.log(a);
     }else{
         socket.emit("getUser");
     }
