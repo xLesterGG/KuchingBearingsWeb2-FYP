@@ -298,7 +298,6 @@ socket.on("connection",(client)=>{
                         inquiryOwner:inqOwner
                     });
 
-                    // console.log(a.key);
 
                     database.ref('/adconversations/'+inqOwner+'/'+inq.inquiryID+'?'+inq.inquiryName+'/'+a.key).set({
                         messageText: msg.msg,
@@ -321,6 +320,18 @@ socket.on("connection",(client)=>{
                         inquiryOwner:inqOwner
                     }
 
+
+                    var msg1 = {
+                        messageText: msg.messageText,
+                        messageTime : '-'+parseInt(new Date().getTime()),
+                        messageUser : msg.messageUser,
+                        messageRead: false,
+                        messageID:uid,
+                        inquiryOwner:inqOwner
+                    }
+
+
+
                     if(inq.quotations!=undefined)
                     {
                         var data = {
@@ -335,6 +346,18 @@ socket.on("connection",(client)=>{
                             inquiryTime: inq.inquiryTime
                         }
 
+                        var data1 = {
+                            inquiryPeoples: inq.inquiryPeoples,
+                            inquiryName:inq.inquiryName,
+                            inquiryID:inq.inquiryID,
+                            inquiryOwner: inq.inquiryOwner,
+                            lastMessage: msg1,
+                            msgUnreadCountForMobile: unread,
+                            bearings : inq.bearings,
+                            quotations:inq.quotations,
+                            inquiryTime: inq.inquiryTime
+                        }
+
                         var update = {};
                         var update1 = {};
 
@@ -343,7 +366,7 @@ socket.on("connection",(client)=>{
                         update['/inquiries/'+ inq.inquiryID] = data;
                         database.ref().update(update);
 
-                        update1['/adinquiries/'+ inqOwner+'/'+ inq.inquiryID] =data;
+                        update1['/adinquiries/'+ inqOwner+'/'+ inq.inquiryID] =data1;
                         database.ref().update(update1);
 
 
@@ -362,6 +385,17 @@ socket.on("connection",(client)=>{
                             inquiryTime: inq.inquiryTime
                         }
 
+                        var data1 = {
+                            inquiryPeoples: inq.inquiryPeoples,
+                            inquiryName:inq.inquiryName,
+                            inquiryID:inq.inquiryID,
+                            inquiryOwner: inq.inquiryOwner,
+                            lastMessage: msg1,
+                            msgUnreadCountForMobile: unread,
+                            bearings : inq.bearings,
+                            inquiryTime: inq.inquiryTime
+                        }
+
                         var update = {};
                         var update1 = {};
 /**************************************************************************************/
@@ -369,7 +403,7 @@ socket.on("connection",(client)=>{
                         update['/inquiries/'+ inq.inquiryID] = data;
                         database.ref().update(update);
 
-                        update1['/adinquiries/'+ inqOwner+'/'+ inq.inquiryID] =data;
+                        update1['/adinquiries/'+ inqOwner+'/'+ inq.inquiryID] =data1;
                         database.ref().update(update1);
 /**************************************************************************************/
 
@@ -392,8 +426,19 @@ socket.on("connection",(client)=>{
                 messageText: inq.lastMessage.messageText,
                 messageTime : inq.lastMessage.messageTime,
                 messageUser : inq.lastMessage.messageUser,
-                messageRead : true
+                messageRead : true,
+                messageID : inq.lastMessage.messageID,
+                inquiryOwner : inq.lastMessage.inquiryOwner
             }
+
+            // var msg = {
+            //     messageText: msg.msg,
+            //     messageTime : parseInt(new Date().getTime()),
+            //     messageUser : msg.sender,
+            //     messageRead: false,
+            //     messageID:uid,
+            //     inquiryOwner:inqOwner
+            // }
 
             if(inq.quotations!=undefined){
                 var data = {
@@ -431,7 +476,6 @@ socket.on("connection",(client)=>{
             database.ref().update(update);
 
 
-
             update1['/adinquiries/'+inq.inquiryOwner +'/'+inq.inquiryID] = data;
             database.ref().update(update1);
 
@@ -451,8 +495,19 @@ socket.on("connection",(client)=>{
                 messageText: inq.lastMessage.messageText,
                 messageTime : inq.lastMessage.messageTime,
                 messageUser : inq.lastMessage.messageUser,
-                messageRead : true
+                messageRead : true,
+                messageID: inq.lastMessage.messageID,
+                inquiryOwner : inq.lastMessage.inquiryOwner
             }
+
+            // var msg = {
+            //     messageText: msg.msg,
+            //     messageTime : parseInt(new Date().getTime()),
+            //     messageUser : msg.sender,
+            //     messageRead: false,
+            //     messageID:uid,
+            //     inquiryOwner:inqOwner
+            // }
 
             if(inq.quotations!=undefined){
                 var data = {
