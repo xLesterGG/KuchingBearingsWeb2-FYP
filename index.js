@@ -220,7 +220,9 @@ socket.on("connection",(client)=>{
                                 messageText: inq.lastMessage.messageText,
                                 messageTime : inq.lastMessage.messageTime,
                                 messageUser : inq.lastMessage.messageUser,
-                                messageRead : true
+                                messageRead : true,
+                                messageID : inq.lastMessage.messageID,
+                                inquiryOwner : inq.lastMessage.inquiryOwner
                         }
 
                         var data = {
@@ -323,7 +325,7 @@ socket.on("connection",(client)=>{
 
                     var msg1 = {
                         messageText: msg.messageText,
-                        messageTime : '-'+parseInt(new Date().getTime()),
+                        messageTime : parseInt('-'+parseInt(new Date().getTime())),
                         messageUser : msg.messageUser,
                         messageRead: false,
                         messageID:uid,
@@ -431,14 +433,7 @@ socket.on("connection",(client)=>{
                 inquiryOwner : inq.lastMessage.inquiryOwner
             }
 
-            // var msg = {
-            //     messageText: msg.msg,
-            //     messageTime : parseInt(new Date().getTime()),
-            //     messageUser : msg.sender,
-            //     messageRead: false,
-            //     messageID:uid,
-            //     inquiryOwner:inqOwner
-            // }
+            // console.log(msg);
 
             if(inq.quotations!=undefined){
                 var data = {
@@ -451,6 +446,8 @@ socket.on("connection",(client)=>{
                     quotations:inq.quotations,
                     inquiryTime: inq.inquiryTime
                 }
+
+
             }
             else{
                 var data = {
@@ -463,6 +460,8 @@ socket.on("connection",(client)=>{
                     inquiryTime: inq.inquiryTime
 
                 }
+
+                console.log(data);
             }
 
 
@@ -474,7 +473,6 @@ socket.on("connection",(client)=>{
 
             update['/inquiries/'+ inq.inquiryID] = data;
             database.ref().update(update);
-
 
             update1['/adinquiries/'+inq.inquiryOwner +'/'+inq.inquiryID] = data;
             database.ref().update(update1);
@@ -634,6 +632,7 @@ socket.on("connection",(client)=>{
                     inquiryTime: inq.inquiryTime
                 }
 
+
             }
             else{
                 var temp = [];
@@ -649,6 +648,9 @@ socket.on("connection",(client)=>{
                     quotations: temp,
                     inquiryTime: inq.inquiryTime
                 }
+
+                console.log(data);
+
             }
 
 

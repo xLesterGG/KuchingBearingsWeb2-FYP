@@ -314,6 +314,7 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
 
     $scope.updateRead = (inq)=>{
         // console.log(inq);
+        console.log('with inq');
         socket.emit("updateLastRead",inq);
     };
 
@@ -507,6 +508,7 @@ app.controller("chatBoxCtrl",($scope,$stateParams,messageService,inqService,user
 
     $scope.updateRead = ()=>{
         socket.emit("updateLastRead2",$scope.chatID);
+        console.log('chatboxctrl');
     };
 
 });
