@@ -73,9 +73,9 @@
                             </td>
 
                             <td class="mdl-data-table__cell--non-numeric">
-                                <div id="xymodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div id="xymodal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -112,7 +112,7 @@
                                                             </td>
 
                                                             <td class="mdl-data-table__cell--non-numeric">
-                                                                <a target="_blank" href="#!/home/inbox/chat/{{y.inquiryID}}">{{y.inquiryName}}</a>
+                                                                <a data-ng-click="reload()" target="_blank" href="#!/home/inbox/chat/{{y.inquiryID}}" >{{y.inquiryName}}</a>
                                                             </td>
 
                                                             <td>
@@ -156,7 +156,6 @@
                                     <span class="text-success">{{p.paymentState}}</span>
                                 </span>
 
-
                             </td>
 
 
@@ -165,7 +164,6 @@
                                 <button data-ng-click="openInq(p.inquiryID)" class="mdl-button mdl-js-button mdl-button--primary">
                                 {{p.inquiryName}}
                                 </button>
-                                <!-- <a data-ng-click="openInq(p.inquiryID)"></a> -->
                             </td>
 
                             <td class="mdl-data-table__cell--non-numeric">
@@ -184,7 +182,6 @@
                                             </div>
 
                                             <div class="modal-body" >
-                                                <!-- Selected -->
                                                 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp " align="center">
 
                                                     <thead>
