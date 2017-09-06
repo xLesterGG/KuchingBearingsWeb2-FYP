@@ -1,23 +1,5 @@
-var app = angular.module("myApp",['ui.router','ngMaterial','ngCookies']);
-
-// (function () {
-// 'use strict';
-// angular.module('CorvetteClub.removemodal.directive', [])
-// .directive('removeModal', ['$document', function ($document) {
-//     return {
-//         restrict: 'A',
-//         link: function (scope, element, attrs) {
-//             element.bind('click', function () {
-//                 $document[0].body.classList.remove('modal-open');
-//                     angular.element($document[0].getElementsByClassName('modal-backdrop')).remove();
-//                     angular.element($document[0].getElementsByClassName('modal')).remove();
-//                 });
-//             }
-//         };
-//     }]);
-// }());
-
-
+// var app = angular.module("myApp",['ui.router','ngMaterial','ngCookies']);
+var app = angular.module("myApp",['ui.router','ngCookies']);
 
 document.addEventListener('DOMContentLoaded', function () { // for notifications
     if (!Notification) {
@@ -29,19 +11,19 @@ document.addEventListener('DOMContentLoaded', function () { // for notifications
         Notification.requestPermission();
 });
 
-app.config(function($mdThemingProvider,$mdIconProvider) {
-  $mdThemingProvider.theme('default')
-    .primaryPalette('blue')
-    .accentPalette('pink');
-});
-
-app.run(function ($rootScope,$timeout) {
-    $rootScope.$on('$viewContentLoaded', ()=> {
-      $timeout(() => {
-        componentHandler.upgradeAllRegistered();
-      })
-    })
-}); // register mdl elemenets
+// app.config(function($mdThemingProvider,$mdIconProvider) {
+//   $mdThemingProvider.theme('default')
+//     .primaryPalette('blue')
+//     .accentPalette('pink');
+// });
+//
+// app.run(function ($rootScope,$timeout) {
+//     $rootScope.$on('$viewContentLoaded', ()=> {
+//       $timeout(() => {
+//         componentHandler.upgradeAllRegistered();
+//       })
+//     })
+// }); // register mdl elemenets
 
 
 // var socket= io.connect("http://protected-sierra-93361.herokuapp.com");
@@ -617,7 +599,7 @@ $urlRouterProvider.otherwise('home/inbox');
     })
     .state('login',{
         url:'/login',
-        templateUrl:"templates/login.html"
+        templateUrl:"templates/login1.html"
     })
     // .state('/', {
     //     url: '/',

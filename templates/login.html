@@ -1,4 +1,4 @@
-<div data-ng-controller="loginCtrl" class="container">
+<div data-ng-controller="loginCtrl" class="container" >
 
 
     <div class="card card-container" >
@@ -12,22 +12,21 @@
                 <input type="password" id="inputPassword" data-ng-model="pass" class="form-control" placeholder="Password" required>
                 <div id="remember" class="checkbox">
                     <label>
-                        <input type="checkbox" value="remember-me"> Remember me
+                        <input type="checkbox" value="remember-me"/> Remember me
                     </label>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-                <!-- <button class="btn btn-lg btn-primary btn-block btn-signin" type="button" data-ng-click="login(email,pass)">Sign in</button> -->
 
             </form>
 
-            <a data-ng-click="showsignup = true" class="forgot-password">
+            <a href data-ng-click="showsignup = true" class="forgot-password">
                 Don't have an account yet?
             </a><br />
-            <a data-ng-click="showlogin = false" class="forgot-password">
+            <a href data-ng-click="showlogin = false" class="forgot-password">
                 Forgot the password?
             </a>
         </div>
-        
+
         <div data-ng-show="showsignup">
             <form class="form-signin" data-ng-submit="register(emailsignup,passsignup,code)">
                 <span id="reauth-email" class="reauth-email"></span>
@@ -35,7 +34,7 @@
                 <input type="password" id="inputPassword" data-ng-model="passsignup" class="form-control" placeholder="Password" required>
                 <input type="password" id="inputPassword" data-ng-model="code" class="form-control" placeholder="Registration Key" required>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign up</button>
-                <a data-ng-click="showsignup = false" class="forgot-password">
+                <a href data-ng-click="showsignup = false" class="forgot-password">
                     Already have an account? Login
                 </a>
             </form>
@@ -53,7 +52,7 @@
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Reset password</button>
             </form>
             <br />
-            <a data-ng-click="showlogin = true" class="forgot-password">
+            <a href data-ng-click="showlogin = true" class="forgot-password">
                 Already have an account? Login
             </a>
 

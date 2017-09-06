@@ -17,11 +17,17 @@ var config = {
 
 
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+
+
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/fonts')); // redirect bootstrap JS
 
-
 app.use('/css',express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+
+app.use('/js',express.static(__dirname+'/node_modules/popper.js/dist/umd/'));
+
+
+
 app.use('/js', express.static(__dirname + '/node_modules/angular'));
 app.use('/js', express.static(__dirname + '/assets'));
 app.use('/css', express.static(__dirname + '/assets')); // for style.css
@@ -43,6 +49,11 @@ app.use('/js',express.static(__dirname + '/node_modules/imageviewer/dist'));
 app.use('/css',express.static(__dirname + '/node_modules/imageviewer/dist'));
 
 app.use('/js',express.static(__dirname+ '/node_modules/angular-cookies/'));
+
+
+app.use('/css',express.static(__dirname+'/assets/emoji-picker/lib/css'));
+app.use('/js',express.static(__dirname+'/assets/emoji-picker/lib/js'));
+app.use('/img',express.static(__dirname+'/assets/emoji-picker/lib/img'));
 
 
 app.get('/',(req,res)=>{

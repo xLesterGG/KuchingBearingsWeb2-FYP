@@ -1,5 +1,34 @@
-<div data-ng-controller="chatCtrl">
-    <nav class="navbar navbar-default navbar-static-top">
+<div data-ng-controller="chatCtrl" >
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#!/home/inbox">SomethingSomethingOS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" data-ui-sref="home.inbox">Inbox <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#!/home/history">Payments</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" data-ng-click="logout()" href>Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- <nav class="navbar navbar-default navbar-static-top">
         <div class="container nav">
             <div class="navbar-header">
                 <button type="button?" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#MenuOnTop" aria-expended="false">
@@ -14,22 +43,9 @@
             <div class="collapse navbar-collapse" id="MenuOnTop">
                 <ul class="nav navbar-nav">
 
-                    <!-- <li><a data-ui-serf="home.admin"> Admin </a></li> -->
                     <li><a data-ui-sref="home.inbox"> Inbox </a></li>
 
-                <!-- <li class="dropdown">
-                <a data-ui-sref="home.inbox" ui-sref-active="active" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                Inbox <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                <li><a data-ui-sref="home.inbox.Read"> Read </a></li>
-                <li><a data-ui-sref="home.inbox.Unread"> Unread </a> </li>
-                <li><a data-ui-sref="home.inbox.Paid"> Paid </a></li>
-                </ul>
-                </li> -->
-
                     <li><a href="#!/home/history"> Payments </a></li>
-                    <!-- <li><a data-ng-click="abc()">aaa</a></li> -->
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -37,12 +53,9 @@
                 </ul>
             </div>
         </div>
-    </nav>
+    </nav> -->
 
-    <div class="container main">
-        <div class="row" id="box">
-
-            <div ui-view></div>
-        </div>
+    <div class="container-fluid" style="background-color:white;height:94vh">
+        <div ui-view></div>
     </div>
 </div>

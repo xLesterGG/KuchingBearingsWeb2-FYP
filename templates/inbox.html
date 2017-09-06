@@ -1,38 +1,36 @@
-    <div class="col-md-3" id="cont" >
-        <h1 id="head"> Inbox </h1>
-        <div id="inqs">
-            <ul class="people" >
-                <li class="person" data-ng-repeat="inq in allInquiryList | orderObjectBy:'lastMesage.messageTime':true track by $index " data-chat="person{{$index}}" ui-sref-active="active" data-ui-sref="home.inbox.chat({id: inq.inquiryID})" data-ng-click="updateRead(inq)">
+    <div class="row" >
+        <div class="col-md-3 col-sm-12" id="cont">
+            <h1 class="display-3" id="head"> Inbox </h1>
+            <div id="inqs">
+                <ul class="people">
+                    <li class="person" data-ng-repeat="inq in allInquiryList | orderObjectBy:'lastMesage.messageTime':true track by $index " data-chat="person{{$index}}" ui-sref-active="active" data-ui-sref="home.inbox.chat({id: inq.inquiryID})" data-ng-click="updateRead(inq)">
 
-                <!-- <li class="person" data-ng-repeat="inq in allInquiryList track by $index" data-chat="person{{$index}}" ui-sref-active="active"  data-ng-click="updateRead(inq)"> -->
+                        <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" />
+                        <span class="name">{{inq.inquiryName}}</span>
+                        <span class="time">{{inq.lastMessage.messageTime | date: 'hh:mm a' }}</span>
 
-                    <img src="http://img.clipartall.com/user-image-user-clipart-276_298.png" alt="" />
-                    <!-- <span class="name"> Conversation name is    {{inq.inquiryName}}</span> -->
-                    <span class="name">{{inq.inquiryName}}</span>
-                    <span class="time">{{inq.lastMessage.messageTime | date: 'hh:mm a' }}</span>
+                        <div data-ng-show="(inq.lastMessage.messageRead==false) && (inq.lastMessage.messageUser!='admin')">
+                            <span class="preview">
+                              <strong>{{inq.lastMessage.messageText}}</strong>
+                            </span>
 
-                    <div data-ng-show="(inq.lastMessage.messageRead==false) && (inq.lastMessage.messageUser!='admin')">
-                        <span class="preview">
-                          <strong>{{inq.lastMessage.messageText}}</strong>
-                        </span>
+                        </div>
 
-                    </div>
+                        <div data-ng-show="inq.lastMessage.messageRead==true || inq.lastMessage.messageUser=='admin'">
+                            <span class="preview">{{inq.lastMessage.messageText}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-                    <div data-ng-show="inq.lastMessage.messageRead==true || inq.lastMessage.messageUser=='admin'">
-                        <span class="preview">{{inq.lastMessage.messageText}}</span>
-                    </div>
-                </li>
-            </ul>
+        <div class="col-md-9 col-sm-12 chats" >
+            <div data-ui-view ></div>
         </div>
     </div>
 
-    <div class="col-md-9 col-lg-9 chats">
-        <div data-ui-view >
-            <!-- <p align="center" style="padding-top: 150px;">
-                Click on one of the conversations on the left
-            </p> -->
-        </div>
-    </div>
+
+
 
     <script>
         $(document).ready(function(){
