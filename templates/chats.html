@@ -109,13 +109,13 @@
             <div class="col-md-12">
                 <div data-ng-repeat="msg in messages |filter: filterR track by $index">
                     <div ng-show="msg.messageUser!='admin'">
-                        <div class="bubble you">
+                        <div class="bubble you" data-toggle="tooltip" data-placement="left" title="{{msg.messageTime|| secondsToDateTime | date:'short'}}">
                             {{msg.messageText}}
                         </div>
                     </div>
 
                     <div ng-show="msg.messageUser=='admin'">
-                        <div class="bubble me">
+                        <div class="bubble me" data-toggle="tooltip" data-placement="right" title="{{msg.messageTime|| secondsToDateTime | date:'short'}}">
                             {{msg.messageText}}
                         </div>
                     </div>

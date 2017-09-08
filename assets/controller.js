@@ -328,6 +328,10 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
 
 app.controller("chatBoxCtrl",($scope,$stateParams,messageService,inqService,userService)=>{
 
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
     $scope.chatID = $stateParams.id; //get chat id
     $scope.messages = messageService.getMessage(); //get messages
 
@@ -543,6 +547,12 @@ app.filter('inqFilter', function(){
         return filtered;
     };
 });
+
+app.filter('secondsToDateTime', [function() {
+    return function(seconds) {
+        return new Date(1970, 0, 1).setSeconds(seconds);
+    };
+}])
 
 app.filter('orderObjectBy', function() {
   return function(items, field, reverse) {
