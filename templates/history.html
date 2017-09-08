@@ -7,7 +7,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th class="" data-ng-click="orderByField='date'; reverseSort = !reverseSort">
+                            <th data-ng-click="orderByField='date'; reverseSort = !reverseSort">
                                 Payment Time
 
                                 <span ng-show="orderByField == 'date'">
@@ -17,11 +17,11 @@
 
                             </th>
 
-                            <th class="">
+                            <th>
                                 Transaction ID
                             </th>
 
-                            <th class="" data-ng-click="orderByField='customer'; reverseSort = !reverseSort">
+                            <th data-ng-click="orderByField='customer'; reverseSort = !reverseSort">
                                 Customer
                                 <span ng-show="orderByField == 'customer'">
                                     <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
@@ -37,7 +37,7 @@
                                 </span>
                             </th>
 
-                            <th class="" >
+                            <th>
                                 Inquiry name
                                 <!-- Inquiry
                                 <span ng-show="orderByField == 'inquiryName'">
@@ -46,7 +46,7 @@
                                 </span> -->
                             </th>
 
-                            <th class="">
+                            <th>
                                 <!-- Quotation number -->
                             </th>
 
@@ -62,8 +62,6 @@
 
                     <tbody>
                         <tr data-ng-repeat="p in payments|orderBy:orderByField:reverseSort">
-
-
                             <td>
                                 {{p.time| date: 'medium'}}
                             </td>
@@ -75,7 +73,7 @@
                             <td>
                                 <div id="xymodal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-dialog " role="document">
                                         <div class="modal-content">
                                             <div class="modal-header bg-primary">
                                                 <h4 class="modal-title text-white ">Past inquiries</h4>
@@ -169,7 +167,7 @@
                                 </button>
                             </td>
 
-                            <td class="mdl-data-table__cell--non-numeric">
+                            <td>
                                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal{{$index}}">
                                 View Quote #{{p.quoteNumber}}
                                 </button>
@@ -177,22 +175,22 @@
 
                                 <div id="myModal{{$index}}" class="modal fade" role="dialog">
 
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header bg-primary">
                                                 <h4 class="modal-title text-white">Quotation</h4>
                                             </div>
 
                                             <div class="modal-body" >
-                                                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp " align="center">
+                                                <table class="table" align="center">
 
                                                     <thead>
                                                         <tr>
-                                                            <th class="mdl-data-table__cell--non-numeric">
+                                                            <th>
                                                                 #
                                                             </th>
 
-                                                            <th class="mdl-data-table__cell--non-numeric">
+                                                            <th>
                                                                 Serial Number
                                                             </th>
 
@@ -216,11 +214,11 @@
 
                                                     <tbody>
                                                         <tr ng-repeat="s in p.quote.quoteBearings track by $index">
-                                                            <td class="mdl-data-table__cell--non-numeric">
+                                                            <td>
                                                                 {{$index+1}}
                                                             </td>
 
-                                                            <td class="mdl-data-table__cell--non-numeric">
+                                                            <td>
                                                                 {{s.serialNo}}
                                                             </td>
 
