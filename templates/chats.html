@@ -384,23 +384,23 @@
 
                         <div id="mModal{{$index}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Quotation</h4>
+                                    <div class="modal-header bg-primary">
+                                        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                        <h4 class="modal-title text-white">Quotation</h4>
                                     </div>
 
                                     <div class="modal-body" >
-                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp " align="center">
+                                        <table class="table" align="center">
 
                                             <thead>
                                                 <tr>
-                                                    <th class="mdl-data-table__cell--non-numeric">
+                                                    <th class="">
                                                         #
                                                     </th>
 
-                                                    <th class="mdl-data-table__cell--non-numeric">
+                                                    <th class="">
                                                         Serial Number
                                                     </th>
 
@@ -424,11 +424,11 @@
 
                                             <tbody>
                                                 <tr ng-repeat="s in q.quoteBearings track by $index">
-                                                    <td class="mdl-data-table__cell--non-numeric">
+                                                    <td scope="row">
                                                         {{$index+1}}
                                                     </td>
 
-                                                    <td class="mdl-data-table__cell--non-numeric">
+                                                    <td>
                                                         {{s.serialNo}}
                                                     </td>
 
@@ -447,7 +447,7 @@
 
                                                 </tr>
 
-                                                <tr>
+                                                <tr >
                                                     <td colspan="2">
                                                         Grand Total
                                                     </td>
@@ -459,7 +459,7 @@
 
                                                     </td>
 
-                                                    <td>
+                                                    <td class="table-primary">
                                                         {{q.gTotal|currency:"RM"}}
                                                     </td>
 
