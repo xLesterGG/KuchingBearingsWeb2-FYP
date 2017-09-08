@@ -2,12 +2,12 @@
     <div class="container" data-ng-controller="historyCtrl" ng-init="getInq();updateUsers()">
         <div class="row">
             <div class="col-md-12">
-                <h2>Payments</h2>
+                <h2 class="display-3">Payments</h2>
 
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <table class="table">
                     <thead>
                         <tr>
-                            <th class="mdl-data-table__cell--non-numeric" data-ng-click="orderByField='date'; reverseSort = !reverseSort">
+                            <th class="" data-ng-click="orderByField='date'; reverseSort = !reverseSort">
                                 Payment Time
 
                                 <span ng-show="orderByField == 'date'">
@@ -17,11 +17,11 @@
 
                             </th>
 
-                            <th class="mdl-data-table__cell--non-numeric">
+                            <th class="">
                                 Transaction ID
                             </th>
 
-                            <th class="mdl-data-table__cell--non-numeric" data-ng-click="orderByField='customer'; reverseSort = !reverseSort">
+                            <th class="" data-ng-click="orderByField='customer'; reverseSort = !reverseSort">
                                 Customer
                                 <span ng-show="orderByField == 'customer'">
                                     <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
@@ -29,7 +29,7 @@
                                 </span>
                             </th>
 
-                            <th class="mdl-data-table__cell--non-numeric" data-ng-click="orderByField='paymentState'; reverseSort = !reverseSort">
+                            <th class="" data-ng-click="orderByField='paymentState'; reverseSort = !reverseSort">
                                 Payment Status
                                 <span ng-show="orderByField == 'paymentState'">
                                     <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
@@ -37,7 +37,7 @@
                                 </span>
                             </th>
 
-                            <th class="mdl-data-table__cell--non-numeric" >
+                            <th class="" >
                                 Inquiry name
                                 <!-- Inquiry
                                 <span ng-show="orderByField == 'inquiryName'">
@@ -46,11 +46,11 @@
                                 </span> -->
                             </th>
 
-                            <th class="mdl-data-table__cell--non-numeric">
+                            <th class="">
                                 <!-- Quotation number -->
                             </th>
 
-                            <th class="mdl-data-table__cell--non-numeric" data-ng-click="orderByField='amount'; reverseSort = !reverseSort">
+                            <th class="" data-ng-click="orderByField='amount'; reverseSort = !reverseSort">
                                 Amount
                                 <span ng-show="orderByField == 'amount'">
                                     <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
@@ -64,42 +64,41 @@
                         <tr data-ng-repeat="p in payments|orderBy:orderByField:reverseSort">
 
 
-                            <td class="mdl-data-table__cell--non-numeric">
+                            <td>
                                 {{p.time| date: 'medium'}}
                             </td>
 
-                            <td class="mdl-data-table__cell--non-numeric">
+                            <td >
                                 {{p.paymentID}}
                             </td>
 
-                            <td class="mdl-data-table__cell--non-numeric">
+                            <td>
                                 <div id="xymodal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Past inquiries</h4>
+                                            <div class="modal-header bg-primary">
+                                                <h4 class="modal-title text-white ">Past inquiries</h4>
                                             </div>
 
                                             <div class="modal-body" >
-                                                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp " align="center">
+                                                <table class="table" align="center">
 
                                                     <thead>
                                                         <tr>
-                                                            <th class="mdl-data-table__cell--non-numeric">
+                                                            <th >
                                                                 #
                                                             </th>
 
-                                                            <th class="mdl-data-table__cell--non-numeric">
+                                                            <th>
                                                                 Inquiry Title
                                                             </th>
 
-                                                            <th class="mdl-data-table__cell--non-numeric">
+                                                            <th>
                                                                 # of bearings requested
                                                             </th>
 
-                                                            <th class="mdl-data-table__cell--non-numeric">
+                                                            <th>
                                                                 # of quotes sent
                                                             </th>
                                                         </tr>
@@ -107,11 +106,11 @@
 
                                                     <tbody>
                                                         <tr ng-repeat="y in allInq|inqFilter:p.customerID track by $index">
-                                                            <td class="mdl-data-table__cell--non-numeric">
+                                                            <td class="">
                                                                 {{$index+1}}
                                                             </td>
 
-                                                            <td class="mdl-data-table__cell--non-numeric">
+                                                            <td class="">
                                                                 <a data-ng-click="reload()" target="_blank" href="#!/home/inbox/chat/{{y.inquiryID}}" >{{y.inquiryName}}</a>
                                                             </td>
 
@@ -144,30 +143,34 @@
 
                                 </div>
 
-                                <button data-toggle="modal" data-target="#xymodal" class="mdl-button mdl-js-button mdl-button--primary">
+
+                                <!-- <span  data-toggle="modal" data-target="#xymodal" class="badge badge-pill badge-primary">{{p.customer}}</span> -->
+                                <!-- <a href class="badge badge-primary" data-toggle="modal" data-target="#xymodal">{{p.customer}}</a> -->
+
+                                <button data-toggle="modal" data-target="#xymodal" class="btn btn-primary btn-sm" type="button">
                                     {{p.customer}}
                                 </button>
 
 
                             </td>
 
-                            <td class="mdl-data-table__cell--non-numeric">
+                            <td>
                                 <span data-ng-if="p.paymentState == 'approved'">
-                                    <span class="text-success">{{p.paymentState}}</span>
+                                    <span class="text-success">Approved</span>
                                 </span>
 
                             </td>
 
 
 
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <button data-ng-click="openInq(p.inquiryID)" class="mdl-button mdl-js-button mdl-button--primary">
+                            <td>
+                                <button data-ng-click="openInq(p.inquiryID)" class="btn btn-primary btn-sm">
                                 {{p.inquiryName}}
                                 </button>
                             </td>
 
                             <td class="mdl-data-table__cell--non-numeric">
-                                <button class="mdl-button mdl-js-button mdl-button--primary" data-toggle="modal" data-target="#myModal{{$index}}">
+                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal{{$index}}">
                                 View Quote #{{p.quoteNumber}}
                                 </button>
 
@@ -176,9 +179,8 @@
 
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Quotation</h4>
+                                            <div class="modal-header bg-primary">
+                                                <h4 class="modal-title text-white">Quotation</h4>
                                             </div>
 
                                             <div class="modal-body" >

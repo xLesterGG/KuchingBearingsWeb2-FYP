@@ -123,7 +123,9 @@ app.controller("historyCtrl",($scope,inqService,userService)=>{
 
 
     $scope.openInq = (ID)=>{
-        window.open("http://protected-sierra-93361.herokuapp.com/#!/home/inbox/chat/"+ID);
+        // window.open("http://protected-sierra-93361.herokuapp.com/#!/home/inbox/chat/"+ID);
+        window.open("http://localhost:3000/#!/home/inbox/chat/"+ID);
+
     }
     $scope.getInq = ()=>{
         $scope.allInq = inqService.getInq();
