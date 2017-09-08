@@ -178,11 +178,13 @@
 
 
         <div class="card" style="margin-top:15px">
-            <h4 class="card-header bg-primary text-white">Bearings Requested</h4>
+            <h4 class="card-header bg-primary text-white">Bearings Requested <span class="badge badge-light text-primary">{{currentInq1.bearings.length}}</span></h4>
 
             <div id="bearings">
                 <div class="card-body" style="border-top:1px solid #e6e6e6" data-ng-repeat="b in currentInq1.bearings track by $index">
-                    <a href><img style="width:4.16vw;height:auto" class="image float-md-right" ng-click="view()" ng-src="{{b.imageUrl}}" alt="bearing picture"/></a>
+                    <a href><img style="width:4.16vw;height:auto" ng-show="b.imageUrl!=''" class="image float-md-right" ng-click="view()" ng-src="{{b.imageUrl}}" alt="bearing picture"/></a>
+                    <!-- <a href><img style="width:4.16vw;height:auto" ng-show="b.imageUrl==''" class="image float-md-right" ng-src="{{b.imageUrl}}" alt="not given"/></a> -->
+
                     <!-- <a href><img style="width:4.16vw;height:auto" class="image float-md-right" ng-click="view()" ng-src="http://www.smiley.com/sites/default/files/BRAND_SMILEY_MAIN.jpg" alt="bearing picture"/></a> -->
 
                     <h4 class="card-title" ng-show="b.serialNo!=''">Serial No: {{b.serialNo}}</h4>
@@ -237,7 +239,8 @@
 
         <div class="quotation" data-ng-repeat="inq in allInq|customFilter:chatID track by $index">
 
-            <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal{{$index}}" > Send Quotation </button>
+            <button style="" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal{{$index}}" > Send Quotation </button>
+
 
             <div id="myModal{{$index}}" class="modal fade" role="dialog">
 
@@ -361,13 +364,13 @@
         </div>
         <!-- quotation end--->
 
-        <div class="card" >
-            <h4 class="card-header bg-primary text-white">Quotations sent</h4>
+        <div class="card" style="margin-top:60px">
+            <h4 class="card-header bg-primary text-white">Quotations sent <span class="badge badge-light text-primary">{{currentInq1.quotations.length}}</span> </h4>
 
 
                 <div id="quotes">
                     <div ng-repeat="q in currentInq.quotations track by $index">
-                        <div class="card-body" data-toggle="modal" data-target="#mModal{{$index}}">
+                        <div class="card-body" style="border-top:1px solid #e6e6e6" data-toggle="modal" data-target="#mModal{{$index}}">
                             <img ng-if="q.payment == undefined" alt="quote logo" src="https://www.dapd.net/content/uploads/2012/08/DAP_Icon_Mail-400x400.jpg" style="width:80px;height:auto;margin-right:10px" class="float-md-left"/>
 
                             <img ng-if="q.payment != undefined" src="https://cdn.dribbble.com/users/9866/screenshots/672155/paid_stamp.png" style="width:80px;height:auto;margin-right:10px" class="float-md-left" alt="quote logo"/>
