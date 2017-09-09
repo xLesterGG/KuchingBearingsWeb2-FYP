@@ -180,13 +180,14 @@ input::-webkit-inner-spin-button {
 }
 
 #convo {
+    margin-top:10px;
     margin-left: auto;
     margin-right: auto;
     padding-right: 65px;
     padding-left: 40px;
     float: left;
     overflow: auto;
-    height:85vh;
+    height:70vh;
     /*height:45vh;*/
     width: 100%;
     overflow-x: hidden;

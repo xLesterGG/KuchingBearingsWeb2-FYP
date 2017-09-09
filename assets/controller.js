@@ -268,6 +268,10 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
         messageService.addMessage(message);
         $scope.$apply();
 
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
         $(document).ready(function(){
         $('#convo').animate({
             scrollTop: $('#convo')[0].scrollHeight}, 0);

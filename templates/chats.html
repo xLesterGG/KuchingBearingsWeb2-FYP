@@ -5,29 +5,28 @@
 
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Past inquiries</h4>
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title text-white">Past inquiries</h4>
                     </div>
 
                     <div class="modal-body" >
-                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp " align="center">
+                        <table class="table" align="center">
 
                             <thead>
                                 <tr>
-                                    <th class="mdl-data-table__cell--non-numeric">
+                                    <th>
                                         #
                                     </th>
 
-                                    <th class="mdl-data-table__cell--non-numeric">
+                                    <th>
                                         Inquiry Title
                                     </th>
 
-                                    <th class="mdl-data-table__cell--non-numeric">
+                                    <th>
                                         # of bearings requested
                                     </th>
 
-                                    <th class="mdl-data-table__cell--non-numeric">
+                                    <th>
                                         # of quotes sent
                                     </th>
                                 </tr>
@@ -35,11 +34,11 @@
 
                             <tbody>
                                 <tr ng-repeat="y in allInq|inqFilter:currentInq.inquiryOwner track by $index">
-                                    <td class="mdl-data-table__cell--non-numeric">
+                                    <td>
                                         {{$index+1}}
                                     </td>
 
-                                    <td class="mdl-data-table__cell--non-numeric">
+                                    <td>
                                         <a target="_blank" href="#!/home/inbox/chat/{{y.inquiryID}}">{{y.inquiryName}}</a>
                                     </td>
 
@@ -70,6 +69,21 @@
 
             </div>
 
+        </div>
+
+        <div class="card" style="margin-top:5px">
+            <h4 class="card-header bg-primary text-white">
+                Inquiry title:  {{currentInq.inquiryName}}
+                <!-- <button class="btn btn-light btn-sm text-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    See more
+                </button> -->
+            </h4>
+
+            <div class="card-body" id="collapseExample">
+                <h4 class="class-title">{{currentUser.name}} <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#mmmodal">Details</button></h4>
+                <h6 class="card-subtitle mb-2 text-muted">{{currentUser.email}}</h6>
+
+            </div>
         </div>
 
         <!-- <div style="background-color:#F5F5F5">
