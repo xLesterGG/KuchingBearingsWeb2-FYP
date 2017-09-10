@@ -120,17 +120,18 @@
         </div> -->
 
         <div id="convo" data-ng-model="convo" class="row">
+
             <div class="col-md-12">
                 <div data-ng-repeat="msg in messages |filter: filterR track by $index">
                     <div ng-show="msg.messageUser!='admin'">
                         <div class="bubble you" data-toggle="tooltip" data-placement="left" title="{{msg.messageTime|| secondsToDateTime | date:'short'}}">
-                            {{msg.messageText}}
+                            <span style="white-space: pre-line">{{msg.messageText}}</span>
                         </div>
                     </div>
 
                     <div ng-show="msg.messageUser=='admin'">
                         <div class="bubble me" data-toggle="tooltip" data-placement="right" title="{{msg.messageTime|| secondsToDateTime | date:'short'}}">
-                            {{msg.messageText}}
+                            <span style="white-space: pre-line">{{msg.messageText}}</span>
                         </div>
                     </div>
                 </div>
