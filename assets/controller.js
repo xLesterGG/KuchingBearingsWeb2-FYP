@@ -334,6 +334,14 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
 
 app.controller("chatBoxCtrl",($scope,$stateParams,messageService,inqService,userService)=>{
 
+    $("#usermsg").keypress(function (e) {
+        if(e.which == 13 && !e.shiftKey) {
+            $scope.sendMessage2();
+            e.preventDefault();
+            return false;
+        }
+    });
+
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
@@ -510,6 +518,7 @@ app.controller("chatBoxCtrl",($scope,$stateParams,messageService,inqService,user
     $scope.sendMessage2 = ()=>{
         if($scope.inputMessage!=''){
             var toSend = {};
+            console.log($scope.inputMessage);
             toSend.dest = $scope.chatID;
             toSend.mess = $scope.inputMessage;
             socket.emit("sendMessage",toSend,$scope.currentInq.inquiryOwner);

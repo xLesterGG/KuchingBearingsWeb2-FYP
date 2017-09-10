@@ -162,10 +162,10 @@
                       </div>
                     </div> -->
 
-                    <input class="form-control col-md-9" placeholder="Type a message" data-ng-click="updateRead()" type="text" data-ng-model="inputMessage"/>
+                    <!-- <input class="form-control col-md-9" placeholder="Type a message" data-ng-click="updateRead()" type="text" data-ng-model="inputMessage"/> -->
 
 
-                    <!-- <textarea class="form-control col-md-10" rows="3" placeholder="Type a message" data-ng-click="updateRead()" data-ng-model="inputMessage" data-emojiable="true"></textarea> -->
+                    <textarea class="form-control col-md-10" id="usermsg" rows="3" placeholder="Type a message" data-ng-click="updateRead()" data-ng-model="inputMessage"></textarea>
 
                     <!-- <input class="form-control col-md-10" placeholder="Type a message" data-ng-click="updateRead()" type="text" data-emojiable="true" data-ng-model="inputMessage"/> -->
                     <button class="btn btn-primary" data-ng-model="inputMessage">Send message</button>
@@ -509,21 +509,6 @@
 
 
 </div>
-
-<!-- <script>
-  $(function() {
-    // Initializes and creates emoji set from sprite sheet
-    window.emojiPicker = new EmojiPicker({
-      emojiable_selector: '[data-emojiable=true]',
-      assetsPath: '/img/',
-      popupButtonClasses: 'fa fa-smile-o'
-    });
-    // Finds all elements with `emojiable_selector` and converts them to rich emoji input fields
-    // You may want to delay this step if you have dynamically created input fields that appear later in the loading process
-    // It can be called as many times as necessary; previously converted input fields will not be converted again
-    window.emojiPicker.discover();
-  });
-</script> -->
 
 <!-- <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
     <div class="mdl-snackbar__text"></div>
