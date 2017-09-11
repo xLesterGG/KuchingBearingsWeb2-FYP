@@ -170,6 +170,41 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
         $scope.$apply();
     }
 
+    $scope.getPaid = (inq)=>{
+        if('quotations' in inq)
+        {
+            for(var i = 0; i < inq.quotations.length; i++)
+            {
+                // console.log(inq.quotations[i]);
+                if('payment' in inq.quotations[i]){
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    $scope.getUnpaid = (inq)=>{
+        if('quotations' in inq)
+        {
+            for(var i = 0; i < inq.quotations.length; i++)
+            {
+                // console.log(inq.quotations[i]);
+                if('payment' in inq.quotations[i]){
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        else{
+            return true;
+        }
+
+    }
+
+    $scope.selected = "inbox";
 
     if(!$cookieStore.get('kbLogged')){
         socket.emit("getUser");
