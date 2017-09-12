@@ -1,4 +1,4 @@
-<div data-ng-controller="chatBoxCtrl" data-ng-init="updateFilter(); autojoinRoom();getInq();" class="row">
+<div data-ng-controller="chatBoxCtrl" data-ng-init="updateFilter(); autojoinRoom();getInq();" class="row" style="background-color:white">
 
     <div class="col-md-8 conversation">
         <div id="mmmodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -166,10 +166,10 @@
                     <!-- <input class="form-control col-md-9" placeholder="Type a message" data-ng-click="updateRead()" type="text" data-ng-model="inputMessage"/> -->
 
 
-                    <textarea class="form-control col-md-10" id="usermsg" rows="3" placeholder="Type a message" data-ng-click="updateRead()" data-ng-model="inputMessage"></textarea>
+                    <textarea class="form-control col-md-10" id="usermsg" placeholder="Type a message" data-ng-click="updateRead()" data-ng-model="inputMessage"></textarea>
 
                     <!-- <input class="form-control col-md-10" placeholder="Type a message" data-ng-click="updateRead()" type="text" data-emojiable="true" data-ng-model="inputMessage"/> -->
-                    <button class="btn btn-primary" data-ng-model="inputMessage">Send message</button>
+                    <button class="btn btn-primary" data-ng-model="inputMessage">Send</button>
 
 
                 </div>

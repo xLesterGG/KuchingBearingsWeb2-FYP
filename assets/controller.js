@@ -170,6 +170,29 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
         $scope.$apply();
     }
 
+    $scope.getRead = (inq)=>{
+        // console.log(inq.lastMessage);
+        if(inq.lastMessage.messageUser=="admin")
+        {
+            return true;
+        }else if(inq.lastMessage.messageUser!="admin" && inq.lastMessage.messageRead== true){
+            return true;
+        }
+        else{
+          return false;
+        }
+    };
+
+    $scope.getUnread = (inq)=>{
+        if(inq.lastMessage.messageUser=="admin"){
+            return false;
+        } else if(inq.lastMessage.messageUser!="admin" && inq.lastMessage.messageRead== false){
+            return true;
+        }else if(inq.lastMessage.messageUser!="admin" && inq.lastMessage.messageRead== true){
+            return false;
+        }
+    };
+
     $scope.getPaid = (inq)=>{
         if('quotations' in inq)
         {
