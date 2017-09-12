@@ -243,27 +243,28 @@ socket.on("connection",(client)=>{
                             inquiryOwner: inq.inquiryOwner,
                             lastMessage: msg,
                             bearings: inq.bearings,
-                            inquiryTime: inq.inquiryTime
+                            inquiryTime: inq.inquiryTime,
+                            status: inq.status
                         }
 
                         var update = {};
                         update['/inquiries/'+ inq.inquiryID] = data;
                         database.ref().update(update);
                     }
-                    else{
-                        var data = {
-                            inquiryPeoples: inq.inquiryPeoples,
-                            inquiryName:inq.inquiryName,
-                            inquiryID:inq.inquiryID,
-                            inquiryOwner: inq.inquiryOwner,
-                            bearings: inq.bearings,
-                            inquiryTime: inq.inquiryTime
-                        }
-
-                        var update = {};
-                        update['/inquiries/'+ inq.inquiryID] = data;
-                        database.ref().update(update);
-                    }
+                    // else{
+                    //     var data = {
+                    //         inquiryPeoples: inq.inquiryPeoples,
+                    //         inquiryName:inq.inquiryName,
+                    //         inquiryID:inq.inquiryID,
+                    //         inquiryOwner: inq.inquiryOwner,
+                    //         bearings: inq.bearings,
+                    //         inquiryTime: inq.inquiryTime
+                    //     }
+                    //
+                    //     var update = {};
+                    //     update['/inquiries/'+ inq.inquiryID] = data;
+                    //     database.ref().update(update);
+                    // }
                 }
             }
         }else{
@@ -356,7 +357,8 @@ socket.on("connection",(client)=>{
                             msgUnreadCountForMobile: unread,
                             bearings : inq.bearings,
                             quotations:inq.quotations,
-                            inquiryTime: inq.inquiryTime
+                            inquiryTime: inq.inquiryTime,
+                            status: inq.status
                         }
 
                         var data1 = {
@@ -395,7 +397,8 @@ socket.on("connection",(client)=>{
                             lastMessage: msg,
                             msgUnreadCountForMobile: unread,
                             bearings : inq.bearings,
-                            inquiryTime: inq.inquiryTime
+                            inquiryTime: inq.inquiryTime,
+                            status: inq.status
                         }
 
                         var data1 = {
@@ -432,6 +435,76 @@ socket.on("connection",(client)=>{
 
     });
 
+    client.on("toTrash",(inq)=>{
+        if(inq.quotations!=undefined){
+            var data = {
+                inquiryPeoples: inq.inquiryPeoples,
+                inquiryName:inq.inquiryName,
+                inquiryID:inq.inquiryID,
+                inquiryOwner: inq.inquiryOwner,
+                lastMessage: inq.lastMessage,
+                bearings:inq.bearings,
+                quotations:inq.quotations,
+                inquiryTime: inq.inquiryTime,
+                status: "trash"
+            }
+
+
+        }
+        else{
+            var data = {
+                inquiryPeoples: inq.inquiryPeoples,
+                inquiryName:inq.inquiryName,
+                inquiryID:inq.inquiryID,
+                inquiryOwner: inq.inquiryOwner,
+                lastMessage: inq.lastMessage,
+                bearings:inq.bearings,
+                inquiryTime: inq.inquiryTime,
+                status:"trash"
+
+            }
+        }
+
+        var update = {};
+        update['/inquiries/'+ inq.inquiryID] = data;
+        database.ref().update(update);
+    });
+
+    client.on("toInbox",(inq)=>{
+        if(inq.quotations!=undefined){
+            var data = {
+                inquiryPeoples: inq.inquiryPeoples,
+                inquiryName:inq.inquiryName,
+                inquiryID:inq.inquiryID,
+                inquiryOwner: inq.inquiryOwner,
+                lastMessage: inq.lastMessage,
+                bearings:inq.bearings,
+                quotations:inq.quotations,
+                inquiryTime: inq.inquiryTime,
+                status: "none"
+            }
+
+
+        }
+        else{
+            var data = {
+                inquiryPeoples: inq.inquiryPeoples,
+                inquiryName:inq.inquiryName,
+                inquiryID:inq.inquiryID,
+                inquiryOwner: inq.inquiryOwner,
+                lastMessage: inq.lastMessage,
+                bearings:inq.bearings,
+                inquiryTime: inq.inquiryTime,
+                status:"none"
+
+            }
+        }
+
+        var update = {};
+        update['/inquiries/'+ inq.inquiryID] = data;
+        database.ref().update(update);
+    });
+
     client.on("updateLastRead",(inq)=>{
 
         if(inq.lastMessage!= undefined && inq.lastMessage.messageUser!='admin'){
@@ -455,7 +528,8 @@ socket.on("connection",(client)=>{
                     lastMessage: msg,
                     bearings:inq.bearings,
                     quotations:inq.quotations,
-                    inquiryTime: inq.inquiryTime
+                    inquiryTime: inq.inquiryTime,
+                    status: inq.status
                 }
 
 
@@ -468,7 +542,8 @@ socket.on("connection",(client)=>{
                     inquiryOwner: inq.inquiryOwner,
                     lastMessage: msg,
                     bearings:inq.bearings,
-                    inquiryTime: inq.inquiryTime
+                    inquiryTime: inq.inquiryTime,
+                    status:inq.status
 
                 }
 
@@ -527,7 +602,8 @@ socket.on("connection",(client)=>{
                     lastMessage: msg,
                     bearings:inq.bearings,
                     quotations:inq.quotations,
-                    inquiryTime: inq.inquiryTime
+                    inquiryTime: inq.inquiryTime,
+                    status:inq.status
                 }
             }
             else{
@@ -538,7 +614,8 @@ socket.on("connection",(client)=>{
                     inquiryOwner: inq.inquiryOwner,
                     lastMessage: msg,
                     bearings:inq.bearings,
-                    inquiryTime: inq.inquiryTime
+                    inquiryTime: inq.inquiryTime,
+                    status:inq.status
                 }
             }
 
@@ -657,7 +734,8 @@ socket.on("connection",(client)=>{
                     lastMessage: inq.lastMessage,
                     bearings: inq.bearings,
                     quotations: temp,
-                    inquiryTime: inq.inquiryTime
+                    inquiryTime: inq.inquiryTime,
+                    status:inq.status
                 }
 
                 console.log(data);
@@ -691,7 +769,8 @@ socket.on("connection",(client)=>{
                     inquiryOwner: inq.inquiryOwner,
                     bearings: inq.bearings,
                     quotations: c,
-                    inquiryTime: inq.inquiryTime
+                    inquiryTime: inq.inquiryTime,
+                    status:inq.status
                 }
 
             }
@@ -706,7 +785,8 @@ socket.on("connection",(client)=>{
                     inquiryOwner: inq.inquiryOwner,
                     bearings: inq.bearings,
                     quotations: temp,
-                    inquiryTime: inq.inquiryTime
+                    inquiryTime: inq.inquiryTime,
+                    status:inq.status
                 }
             }
 

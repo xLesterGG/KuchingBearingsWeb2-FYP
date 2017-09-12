@@ -208,6 +208,24 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
         }
     }
 
+    $scope.getInbox = (inq)=>{
+        if(inq.status=="trash")
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    $scope.getTrash = (inq)=>{
+        if(inq.status=="trash")
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     $scope.getUnpaid = (inq)=>{
         if('quotations' in inq)
         {
@@ -268,10 +286,6 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
 
     });
 
-
-    function tlogin(){
-        // $state.go('login');
-    }
 
 
     $scope.view = ()=>{
@@ -419,6 +433,15 @@ app.controller("chatBoxCtrl",($scope,$stateParams,messageService,inqService,user
 
     $scope.users = {};
 
+    $scope.toTrash = (inq)=>{
+        socket.emit("toTrash",inq);
+
+    }
+
+    $scope.toInbox = (inq)=>{
+        socket.emit("toInbox",inq);
+
+    }
 
     $scope.updateUsers = ()=>{
         $scope.users = userService.getUsers();

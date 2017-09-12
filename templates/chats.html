@@ -74,6 +74,19 @@
         <div class="card" style="margin-top:5px">
             <h4 class="card-header bg-primary text-white">
                 Inquiry title:  {{currentInq.inquiryName}}
+
+                <div class="dropdown float-right">
+                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Move to
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a ng-show="currentInq.status !='trash'" class="dropdown-item" href data-ng-click="toTrash(currentInq)">Move to trash</a>
+
+                    <a ng-show="currentInq.status =='trash'" class="dropdown-item" href data-ng-click="toInbox(currentInq)">Move to Inbox</a>
+
+                  </div>
+                </div>
+
                 <!-- <button class="btn btn-light btn-sm text-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     See more
                 </button> -->

@@ -6,15 +6,38 @@
                     Filter
                     </button>
                         <div class="dropdown-menu">
-                        <a class="dropdown-item" href>Trash</a>
+                        <a class="dropdown-item" href data-ng-click="selected='trash'">Trash</a>
+                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href data-ng-click="selected='paid'">Paid</a>
                         <a class="dropdown-item" href data-ng-click="selected='unpaid'">Unpaid</a>
+                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href data-ng-click="selected='read'">Read</a>
                         <a class="dropdown-item" href data-ng-click="selected='unread'">Unread</a>
 
                     </div>
                 </div>
             </h2>
+
+            <h1 class="display-3" id="head" data-ng-show="selected=='trash'"> Trash
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filter
+                    </button>
+                        <div class="dropdown-menu">
+                        <a class="dropdown-item" href data-ng-click="selected='inbox'">Inbox</a>
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href data-ng-click="selected='paid'">Paid</a>
+                        <a class="dropdown-item" href data-ng-click="selected='unpaid'">Unpaid</a>
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href data-ng-click="selected='read'">Read</a>
+                        <a class="dropdown-item" href data-ng-click="selected='unread'">Unread</a>
+                    </div>
+                </div>
+            </h1>
 
             <h1 class="display-3" id="head" data-ng-show="selected=='paid'"> Paid
                 <div class="btn-group">
@@ -23,8 +46,12 @@
                     </button>
                         <div class="dropdown-menu">
                         <a class="dropdown-item" href data-ng-click="selected='inbox'">Inbox</a>
-                        <a class="dropdown-item" href>Trash</a>
+                        <a class="dropdown-item" href data-ng-click="selected='trash'">Trash</a>
+                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href data-ng-click="selected='unpaid'">Unpaid</a>
+                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href data-ng-click="selected='read'">Read</a>
                         <a class="dropdown-item" href data-ng-click="selected='unread'">Unread</a>
                     </div>
@@ -38,9 +65,13 @@
                     </button>
                         <div class="dropdown-menu">
                         <a class="dropdown-item" href data-ng-click="selected='inbox'">Inbox</a>
-                        <a class="dropdown-item" href>Trash</a>
+                        <a class="dropdown-item" href data-ng-click="selected='trash'">Trash</a>
+                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href data-ng-click="selected='paid'">Paid</a>
                         <a class="dropdown-item" href data-ng-click="selected='unpaid'">Unpaid</a>
+                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href data-ng-click="selected='unread'">Unread</a>
                     </div>
                 </div>
@@ -53,9 +84,13 @@
                     </button>
                         <div class="dropdown-menu">
                         <a class="dropdown-item" href data-ng-click="selected='inbox'">Inbox</a>
-                        <a class="dropdown-item" href>Trash</a>
+                        <a class="dropdown-item" href data-ng-click="selected='trash'">Trash</a>
+                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href data-ng-click="selected='paid'">Paid</a>
                         <a class="dropdown-item" href data-ng-click="selected='unpaid'">Unpaid</a>
+                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href data-ng-click="selected='read'">Read</a>
                     </div>
                 </div>
@@ -68,8 +103,12 @@
                     </button>
                         <div class="dropdown-menu">
                         <a class="dropdown-item" href data-ng-click="selected='inbox'">Inbox</a>
-                        <a class="dropdown-item" href>Trash</a>
+                        <a class="dropdown-item" href data-ng-click="selected='trash'">Trash</a>
+                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href data-ng-click="selected='paid'">Paid</a>
+                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href data-ng-click="selected='read'">Read</a>
                         <a class="dropdown-item" href data-ng-click="selected='unread'">Unread</a>
                     </div>
@@ -79,7 +118,7 @@
 
             <div id="inqs" data-ng-if="selected=='inbox'">
                 <ul class="people">
-                    <li class="person" data-ng-repeat="inq in allInquiryList |orderObjectBy:'lastMesage.messageTime':true track by $index " data-chat="person{{$index}}" ui-sref-active="active" data-ui-sref="home.inbox.chat({id: inq.inquiryID})" data-ng-click="updateRead(inq)">
+                    <li class="person" data-ng-repeat="inq in allInquiryList |orderObjectBy:'lastMesage.messageTime':true|filter:getInbox track by $index " data-chat="person{{$index}}" ui-sref-active="active" data-ui-sref="home.inbox.chat({id: inq.inquiryID})" data-ng-click="updateRead(inq)">
 
                         <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" />
                         <span class="name">{{inq.inquiryName}}</span>
@@ -98,6 +137,31 @@
                     </li>
                 </ul>
             </div>
+
+            <div id="inqs" data-ng-if="selected=='trash'">
+                <ul class="people">
+                    <li class="person" data-ng-repeat="inq in allInquiryList |orderObjectBy:'lastMesage.messageTime':true| filter:getTrash track by $index " data-chat="person{{$index}}" ui-sref-active="active" data-ui-sref="home.inbox.chat({id: inq.inquiryID})" data-ng-click="updateRead(inq)">
+
+                        <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" />
+                        <span class="name">{{inq.inquiryName}}</span>
+                        <span class="time">{{inq.lastMessage.messageTime | date: 'hh:mm a' }}</span>
+
+                        <div data-ng-show="(inq.lastMessage.messageRead==false) && (inq.lastMessage.messageUser!='admin')">
+                            <span class="preview">
+                              <strong>{{inq.lastMessage.messageText}}</strong>
+                            </span>
+
+                        </div>
+
+                        <div data-ng-show="inq.lastMessage.messageRead==true || inq.lastMessage.messageUser=='admin'">
+                            <span class="preview">{{inq.lastMessage.messageText}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+
 
             <div id="inqs" data-ng-if="selected=='paid'">
                 <ul class="people">
