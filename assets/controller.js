@@ -566,17 +566,17 @@ app.controller("chatBoxCtrl",($scope,$stateParams,messageService,inqService,user
         socket.emit("sendQuote",$scope.tosend,$scope.currentInq);
 
 
-        var notification = document.querySelector('.mdl-js-snackbar');
-            notification.MaterialSnackbar.showSnackbar(
-            {
-            message: 'Quotation sent!',
-            timeout: 5000,
-            actionHandler: function(event) {
-                notification.MaterialSnackbar.cleanup_();
-            },
-            actionText: 'Close',
-            }
-        );
+        // var notification = document.querySelector('.mdl-js-snackbar');
+        //     notification.MaterialSnackbar.showSnackbar(
+        //     {
+        //     message: 'Quotation sent!',
+        //     timeout: 5000,
+        //     actionHandler: function(event) {
+        //         notification.MaterialSnackbar.cleanup_();
+        //     },
+        //     actionText: 'Close',
+        //     }
+        // );
 
         var toSend = {};
         toSend.dest = $scope.chatID;
