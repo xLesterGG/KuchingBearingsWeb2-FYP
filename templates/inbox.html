@@ -118,7 +118,7 @@
 
             <div id="inqs" data-ng-if="selected=='inbox'">
                 <ul class="people">
-                    <li class="person" data-ng-repeat="inq in allInquiryList |orderObjectBy:'lastMesage.messageTime':true|filter:getInbox track by $index " data-chat="person{{$index}}" ui-sref-active="active" data-ui-sref="home.inbox.chat({id: inq.inquiryID})" data-ng-click="updateRead(inq)">
+                    <li class="person" data-ng-repeat="inq in allInquiryList |orderObjectBy:'lastMesage.messageTime':false|filter:getInbox track by $index " data-chat="person{{$index}}" ui-sref-active="active" data-ui-sref="home.inbox.chat({id: inq.inquiryID})" data-ng-click="updateRead(inq)">
 
                         <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" />
                         <span class="name">{{inq.inquiryName}}</span>

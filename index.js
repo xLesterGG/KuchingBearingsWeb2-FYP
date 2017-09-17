@@ -28,6 +28,10 @@ app.use('/js',express.static(__dirname+'/node_modules/popper.js/dist/umd/'));
 
 
 
+
+app.use('/js', express.static(__dirname + '/node_modules/firebase'));
+
+
 app.use('/js', express.static(__dirname + '/node_modules/angular'));
 app.use('/js', express.static(__dirname + '/assets'));
 app.use('/css', express.static(__dirname + '/assets')); // for style.css
@@ -78,8 +82,8 @@ var users = {};
 
 var firebase = require('firebase');
 firebase.initializeApp(config);
-var database = firebase.database();
 
+var database = firebase.database();
 
 var ready = false;
 var isReady = false;
@@ -168,10 +172,6 @@ socket.on("connection",(client)=>{
                         conversations[res.key][k] = res.val()[k];
                         var temp = conversations[res.key][k];
                         temp.inquiryID = res.key;
-                        // console.log('temp is');
-                        // console.log(temp);
-                        // console.log('key is ' + key);
-                        // client.emit("recieveMessage",temp)
 
                         console.log(temp);
                         socket.sockets.emit("recieveMessage",temp);
@@ -204,9 +204,6 @@ socket.on("connection",(client)=>{
     });
 
 
-
-    // console.log('count is'+ socket.engine.clientsCount);
-
     client.on("joinRoom", (id)=>{
         var inq = inquiries[id];
         if(inq != undefined){
@@ -230,45 +227,37 @@ socket.on("connection",(client)=>{
                     inq.inquiryPeoples.push('admin');
                     // console.log(inq.inquiryPeoples);
 
-                    if(inq.lastMessage != undefined){
-                        var msg = {
-                                messageText: inq.lastMessage.messageText,
-                                messageTime : inq.lastMessage.messageTime,
-                                messageUser : inq.lastMessage.messageUser,
-                                messageRead : true,
-                                messageID : inq.lastMessage.messageID,
-                                inquiryOwner : inq.lastMessage.inquiryOwner
-                        }
-
-                        var data = {
-                            inquiryPeoples: inq.inquiryPeoples,
-                            inquiryName:inq.inquiryName,
-                            inquiryID:inq.inquiryID,
-                            inquiryOwner: inq.inquiryOwner,
-                            lastMessage: msg,
-                            bearings: inq.bearings,
-                            inquiryTime: inq.inquiryTime,
-                            status: inq.status
-                        }
-
-                        var update = {};
-                        update['/inquiries/'+ inq.inquiryID] = data;
-                        database.ref().update(update);
-                    }
-                    // else{
-                    //     var data = {
-                    //         inquiryPeoples: inq.inquiryPeoples,
-                    //         inquiryName:inq.inquiryName,
-                    //         inquiryID:inq.inquiryID,
-                    //         inquiryOwner: inq.inquiryOwner,
-                    //         bearings: inq.bearings,
-                    //         inquiryTime: inq.inquiryTime
-                    //     }
-                    //
-                    //     var update = {};
-                    //     update['/inquiries/'+ inq.inquiryID] = data;
-                    //     database.ref().update(update);
+                    // var msg = {
+                    //         messageText: inq.lastMessage.messageText,
+                    //         messageTime : inq.lastMessage.messageTime,
+                    //         messageUser : inq.lastMessage.messageUser,
+                    //         messageRead : true,
+                    //         messageID : inq.lastMessage.messageID,
+                    //         inquiryOwner : inq.lastMessage.inquiryOwner
                     // }
+
+                    var msg = inq.lastMessage;
+                    msg.messageRead = true;
+
+                    // var data = {
+                    //     inquiryPeoples: inq.inquiryPeoples,
+                    //     inquiryName:inq.inquiryName,
+                    //     inquiryID:inq.inquiryID,
+                    //     inquiryOwner: inq.inquiryOwner,
+                    //     lastMessage: msg,
+                    //     bearings: inq.bearings,
+                    //     inquiryTime: inq.inquiryTime,
+                    //     status: inq.status
+                    // }
+
+                    var data = inq;
+                    data.lastMessage = msg;
+
+
+                    var update = {};
+                    update['/inquiries/'+ inq.inquiryID] = data;
+                    database.ref().update(update);
+
                 }
             }
         }else{
@@ -278,6 +267,79 @@ socket.on("connection",(client)=>{
 
     });
 
+    client.on("sendImage",(link,inqID)=>{
+        var inq = inquiries[inqID];
+
+        var sender="admin"
+
+        if(inq){
+
+
+            var unread = 0;
+
+            if(inq.msgUnreadCountForMobile == undefined){
+                unread = 1;
+            }
+            else{
+                unread = inq.msgUnreadCountForMobile + 1;
+            }
+
+            var uid = uuid.v4();
+
+            var message = {
+                messageText: "Image",
+                messageTime : parseInt(new Date().getTime()),
+                messageUser : sender,
+                messageRead: false,
+                messageID:uid,
+                inquiryOwner:inq.inquiryOwner,
+                link: link
+            }
+
+            var a = database.ref('/conversations/'+inq.inquiryID).push({
+                messageText: "Image",
+                messageTime : parseInt(new Date().getTime()),
+                messageUser : sender,
+                messageRead: false,
+                messageID:uid,
+                inquiryOwner:inq.inquiryOwner,
+                link: link
+            }); // update convo
+
+            database.ref('/adconversations/'+inq.inquiryOwner+'/'+inq.inquiryID+'?'+inq.inquiryName+'/'+a.key).set({
+                messageText: "Image",
+                messageTime : parseInt(new Date().getTime()),
+                messageUser : sender,
+                messageRead: false,
+                messageID:uid,
+                inquiryOwner:inq.inquiryOwner,
+                link: link
+            });
+// --------------------------------------
+
+            var data = inq;
+            data.lastMessage =message;
+            data.msgUnreadCountForMobile = unread;
+
+            var msg1 = message;
+            msg1.messageTime = parseInt('-'+parseInt(new Date().getTime()));
+            var data1= data;
+            data1.lastMessage = msg1;
+
+            var update = {};
+            var update1 = {};
+
+            update['/inquiries/'+ inq.inquiryID] = data;
+            database.ref().update(update);
+
+            update1['/adinquiries/'+ inq.inquiryOwner+'/'+ inq.inquiryID] =data1;
+            database.ref().update(update1);
+
+
+
+        }
+
+    });
 
     client.on("sendMessage",(message,inqOwner)=>{ // message, room id,
         var inq = inquiries[message.dest]; // inquiry id
@@ -339,33 +401,50 @@ socket.on("connection",(client)=>{
                     }
 
 
-                    var msg1 = {
-                        messageText: msg.messageText,
-                        messageTime : parseInt('-'+parseInt(new Date().getTime())),
-                        messageUser : msg.messageUser,
-                        messageRead: false,
-                        messageID:uid,
-                        inquiryOwner:inqOwner
-                    }
+                    // var msg1 = {
+                    //     messageText: msg.messageText,
+                    //     messageTime : parseInt('-'+parseInt(new Date().getTime())),
+                    //     messageUser : msg.messageUser,
+                    //     messageRead: false,
+                    //     messageID:uid,
+                    //     inquiryOwner:inqOwner
+                    // }
+
+                    var msg1 = msg;
+                    msg1.messageTime = parseInt('-'+parseInt(new Date().getTime()));
 
 
 
                     if(inq.quotations!=undefined)
                     {
-                        var data = {
-                            inquiryPeoples: inq.inquiryPeoples,
-                            inquiryName:inq.inquiryName,
-                            inquiryID:inq.inquiryID,
-                            inquiryOwner: inq.inquiryOwner,
-                            lastMessage: msg,
-                            msgUnreadCountForMobile: unread,
-                            bearings : inq.bearings,
-                            quotations:inq.quotations,
-                            inquiryTime: inq.inquiryTime,
-                            status: inq.status
-                        }
+                        // var data = {
+                        //     inquiryPeoples: inq.inquiryPeoples,
+                        //     inquiryName:inq.inquiryName,
+                        //     inquiryID:inq.inquiryID,
+                        //     inquiryOwner: inq.inquiryOwner,
+                        //     bearings : inq.bearings,
+                        //     quotations:inq.quotations,
+                        //     inquiryTime: inq.inquiryTime,
+                        //     status: inq.status,
+                        //     lastMessage: msg,
+                        //     msgUnreadCountForMobile: unread
+                        // }
 
-                        var data1 = {
+                        var data = inq;
+                        data.lastMessage = msg;
+                        data.msgUnreadCountForMobile = unread;
+
+
+
+                        // console.log(data);
+                        // console.log('\n\n')
+                        // var x = inq;
+                        // x.lastMessage= msg;
+                        // x.msgUnreadCountForMobile = unread;
+                        // console.log(inq);
+
+
+                        var data1 = { // no status coz no need
                             inquiryPeoples: inq.inquiryPeoples,
                             inquiryName:inq.inquiryName,
                             inquiryID:inq.inquiryID,
@@ -376,6 +455,8 @@ socket.on("connection",(client)=>{
                             quotations:inq.quotations,
                             inquiryTime: inq.inquiryTime
                         }
+
+
 
                         var update = {};
                         var update1 = {};
@@ -512,47 +593,51 @@ socket.on("connection",(client)=>{
     client.on("updateLastRead",(inq)=>{
 
         if(inq.lastMessage!= undefined && inq.lastMessage.messageUser!='admin'){
-            var msg = {
-                messageText: inq.lastMessage.messageText,
-                messageTime : inq.lastMessage.messageTime,
-                messageUser : inq.lastMessage.messageUser,
-                messageRead : true,
-                messageID : inq.lastMessage.messageID,
-                inquiryOwner : inq.lastMessage.inquiryOwner
-            }
+            // var msg = {
+            //     messageText: inq.lastMessage.messageText,
+            //     messageTime : inq.lastMessage.messageTime,
+            //     messageUser : inq.lastMessage.messageUser,
+            //     messageRead : true,
+            //     messageID : inq.lastMessage.messageID,
+            //     inquiryOwner : inq.lastMessage.inquiryOwner
+            // }
+
+            var msg = inq.lastMessage;
+            msg.messageRead = true;
 
             // console.log(msg);
+            var data = inq;
+            data.lastMessage = msg;
 
-            if(inq.quotations!=undefined){
-                var data = {
-                    inquiryPeoples: inq.inquiryPeoples,
-                    inquiryName:inq.inquiryName,
-                    inquiryID:inq.inquiryID,
-                    inquiryOwner: inq.inquiryOwner,
-                    lastMessage: msg,
-                    bearings:inq.bearings,
-                    quotations:inq.quotations,
-                    inquiryTime: inq.inquiryTime,
-                    status: inq.status
-                }
-
-
-            }
-            else{
-                var data = {
-                    inquiryPeoples: inq.inquiryPeoples,
-                    inquiryName:inq.inquiryName,
-                    inquiryID:inq.inquiryID,
-                    inquiryOwner: inq.inquiryOwner,
-                    lastMessage: msg,
-                    bearings:inq.bearings,
-                    inquiryTime: inq.inquiryTime,
-                    status:inq.status
-
-                }
-
-                // console.log(data);
-            }
+            // if(inq.quotations!=undefined){
+            //     var data = {
+            //         inquiryPeoples: inq.inquiryPeoples,
+            //         inquiryName:inq.inquiryName,
+            //         inquiryID:inq.inquiryID,
+            //         inquiryOwner: inq.inquiryOwner,
+            //         lastMessage: msg,
+            //         bearings:inq.bearings,
+            //         quotations:inq.quotations,
+            //         inquiryTime: inq.inquiryTime,
+            //         status: inq.status
+            //     }
+            //
+            //
+            // }
+            // else{
+            //     var data = {
+            //         inquiryPeoples: inq.inquiryPeoples,
+            //         inquiryName:inq.inquiryName,
+            //         inquiryID:inq.inquiryID,
+            //         inquiryOwner: inq.inquiryOwner,
+            //         lastMessage: msg,
+            //         bearings:inq.bearings,
+            //         inquiryTime: inq.inquiryTime,
+            //         status:inq.status
+            //
+            //     }
+            //
+            // }
 
 
 
@@ -579,49 +664,47 @@ socket.on("connection",(client)=>{
         var inq = inquiries[inqID];
         // console.log(inq);
         if(inq.lastMessage!= undefined && inq.lastMessage.messageUser!='admin'){
-            var msg = {
-                messageText: inq.lastMessage.messageText,
-                messageTime : inq.lastMessage.messageTime,
-                messageUser : inq.lastMessage.messageUser,
-                messageRead : true,
-                messageID: inq.lastMessage.messageID,
-                inquiryOwner : inq.lastMessage.inquiryOwner
-            }
-
             // var msg = {
-            //     messageText: msg.msg,
-            //     messageTime : parseInt(new Date().getTime()),
-            //     messageUser : msg.sender,
-            //     messageRead: false,
-            //     messageID:uid,
-            //     inquiryOwner:inqOwner
+            //     messageText: inq.lastMessage.messageText,
+            //     messageTime : inq.lastMessage.messageTime,
+            //     messageUser : inq.lastMessage.messageUser,
+            //     messageRead : true,
+            //     messageID: inq.lastMessage.messageID,
+            //     inquiryOwner : inq.lastMessage.inquiryOwner
             // }
 
-            if(inq.quotations!=undefined){
-                var data = {
-                    inquiryPeoples: inq.inquiryPeoples,
-                    inquiryName:inq.inquiryName,
-                    inquiryID:inq.inquiryID,
-                    inquiryOwner: inq.inquiryOwner,
-                    lastMessage: msg,
-                    bearings:inq.bearings,
-                    quotations:inq.quotations,
-                    inquiryTime: inq.inquiryTime,
-                    status:inq.status
-                }
-            }
-            else{
-                var data = {
-                    inquiryPeoples: inq.inquiryPeoples,
-                    inquiryName:inq.inquiryName,
-                    inquiryID:inq.inquiryID,
-                    inquiryOwner: inq.inquiryOwner,
-                    lastMessage: msg,
-                    bearings:inq.bearings,
-                    inquiryTime: inq.inquiryTime,
-                    status:inq.status
-                }
-            }
+            var msg = inq.lastMessage;
+            msg.messageRead = true;
+
+            var data = inq;
+            data.lastMessage = msg;
+
+
+            // if(inq.quotations!=undefined){
+            //     var data = {
+            //         inquiryPeoples: inq.inquiryPeoples,
+            //         inquiryName:inq.inquiryName,
+            //         inquiryID:inq.inquiryID,
+            //         inquiryOwner: inq.inquiryOwner,
+            //         lastMessage: msg,
+            //         bearings:inq.bearings,
+            //         quotations:inq.quotations,
+            //         inquiryTime: inq.inquiryTime,
+            //         status:inq.status
+            //     }
+            // }
+            // else{
+            //     var data = {
+            //         inquiryPeoples: inq.inquiryPeoples,
+            //         inquiryName:inq.inquiryName,
+            //         inquiryID:inq.inquiryID,
+            //         inquiryOwner: inq.inquiryOwner,
+            //         lastMessage: msg,
+            //         bearings:inq.bearings,
+            //         inquiryTime: inq.inquiryTime,
+            //         status:inq.status
+            //     }
+            // }
 
 
 

@@ -136,16 +136,28 @@
 
             <div class="col-md-12">
                 <div data-ng-repeat="msg in messages |filter: filterR track by $index">
-                    <div ng-show="msg.messageUser!='admin'">
-                        <div class="bubble you" data-toggle="tooltip" data-placement="left" title="{{msg.messageTime|| secondsToDateTime | date:'short'}}">
+                    <div ng-if="msg.messageUser!='admin'">
+                        <div ng-if="msg.link==undefined" class="bubble you" data-toggle="tooltip" data-placement="left" title="{{msg.messageTime|| secondsToDateTime | date:'short'}}">
                             <span style="white-space: pre-line">{{msg.messageText}}</span>
                         </div>
+
+                        <div ng-if="msg.link!=undefined" class="bubble you">
+                            <span style="white-space: pre-line"><img class="image" style="width:200px; height:auto" ng-src="{{msg.link}}"ng-click="view()" /></span>
+                        </div>
+
+
                     </div>
 
-                    <div ng-show="msg.messageUser=='admin'">
-                        <div class="bubble me" data-toggle="tooltip" data-placement="right" title="{{msg.messageTime|| secondsToDateTime | date:'short'}}">
+                    <div ng-if="msg.messageUser=='admin'">
+                        <div ng-if="msg.link==undefined" class="bubble me" data-toggle="tooltip" data-placement="right" title="{{msg.messageTime|| secondsToDateTime | date:'short'}}">
                             <span style="white-space: pre-line">{{msg.messageText}}</span>
                         </div>
+
+                        <div ng-if="msg.link!=undefined" class="bubble me">
+                            <span style="white-space: pre-line"><img class="image" style="width:200px; height:auto" ng-src="{{msg.link}}" ng-click="view()"/></span>
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -155,6 +167,7 @@
             </div>
 
         </div>
+
 
         <div id="sMsg">
             <form ng-submit="sendMessage2()">
@@ -183,12 +196,42 @@
                     <!-- <input class="form-control col-md-9" placeholder="Type a message" data-ng-click="updateRead()" type="text" data-ng-model="inputMessage"/> -->
 
 
-                    <textarea class="form-control col-md-10" id="usermsg" placeholder="Type a message" data-ng-click="updateRead()" data-ng-model="inputMessage"></textarea>
+                    <textarea class="form-control col-md-9" id="usermsg" placeholder="Type a message" data-ng-click="updateRead()" data-ng-model="inputMessage"></textarea>
 
                     <!-- <input class="form-control col-md-10" placeholder="Type a message" data-ng-click="updateRead()" type="text" data-emojiable="true" data-ng-model="inputMessage"/> -->
                     <button class="btn btn-primary" data-ng-model="inputMessage">Send</button>
 
+                    <input id="fileInput" type="file" style="display:none;" ng-model="photo" onchange="angular.element(this).scope().file_changed(this)" type="file" accept="image/*"/>
 
+                    <button style="margin-left:20px" class="btn btn-primary" onclick="document.getElementById('fileInput').click();">Send Image</button>
+
+                    <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-primary text-white">
+                                    <h5 class="modal-title " id="exampleModalLabel">Confirm Image upload</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+
+                                <div class="modal-body">
+                                    <div class="col-md">
+                                        <img class="text-center" style="width:250px; height:auto;" ng-src="{{loadedFile}}" alt=""/>
+                                    </div>
+
+
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="button" data-ng-click="upload()" class="btn btn-primary">Confirm upload</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -203,6 +246,9 @@
 
             </form>
         </div>
+
+
+
     </div>
 
 

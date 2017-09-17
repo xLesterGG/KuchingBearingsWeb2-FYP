@@ -179,6 +179,96 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
         $scope.$apply();
     }
 
+
+
+    var config = {
+        apiKey: "AIzaSyAs4US9O4tjsC_DZdcgmbPT3D0Xd179od4",
+        authDomain: "kuchingbearings.firebaseapp.com",
+        databaseURL: "https://kuchingbearings.firebaseio.com",
+        projectId: "kuchingbearings",
+        storageBucket: "kuchingbearings.appspot.com",
+        messagingSenderId: "1033971329142"
+    };
+
+    var fbApp = firebase.initializeApp(config);
+    var defaultStorage  = fbApp.storage().ref();
+
+
+
+
+    $scope.file_changed = function(element) {
+        $scope.$apply(function(scope) {
+
+        var imgRef = defaultStorage.child($stateParams.id+'/'+element.files[0].name);
+
+        // mountainImagesRef.put(element.files[0]).then((snapshot)=>{
+        // console.log('uploaded');
+        // })
+
+        var fileReader = new FileReader();
+        fileReader.onload = ()=>{
+            $scope.loadedFile = fileReader.result;
+               $scope.$apply();
+        };
+
+        fileReader.readAsDataURL(element.files[0]);
+
+
+        $('#imgModal').modal('show');
+
+        var files = element.files; //FileList object
+
+
+        $scope.upload = ()=>{
+            var uploadTask = imgRef.put(element.files[0]);
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,function(snapshot) {
+
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                $scope.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                // console.log('Upload is ' + progress + '% done');
+            }, function(error) {
+
+                alert("error uploading, please try again")
+            }, function() {
+                // Upload completed successfully, now we can get the download URL
+                var downloadURL = uploadTask.snapshot.downloadURL;
+                console.log(downloadURL);
+
+                socket.emit("sendImage", downloadURL,$stateParams.id);
+
+
+                $('#imgModal').modal('hide');
+
+
+                // $scope.sendMessage2 = ()=>{
+                //     if($scope.inputMessage!=''){
+                //         var toSend = {};
+                //         console.log($scope.inputMessage);
+                //         toSend.dest = $scope.chatID;
+                //         toSend.mess = $scope.inputMessage;
+                //         socket.emit("sendMessage",toSend,$scope.currentInq.inquiryOwner);
+                //         $scope.inputMessage = '';
+                //     }
+                // };
+            });
+        }
+
+
+
+
+        //    var uploadTask = defaultStorage.child('images/rivers.jpg').put(element.files[0]);
+
+
+        //  var photofile = element.files[0];
+        //  var reader = new FileReader();
+        //  reader.onload = function(e) {
+        //     // handle onload
+        //  };
+        //  reader.readAsDataURL(photofile);
+        });
+    };
+
+
     $scope.getRead = (inq)=>{
         // console.log(inq.lastMessage);
         if(inq.lastMessage.messageUser=="admin")
