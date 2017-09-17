@@ -97,6 +97,10 @@ app.controller("historyCtrl",($scope,inqService,userService)=>{
     $scope.orderByField = 'time';
     $scope.reverseSort = false;
 
+    // $scope.asdf = ()=>{
+    //     console.log($scope.payments);
+    // };
+
     $scope.reload =()=>{
         console.log('reloadings');
         location.reload();
@@ -134,13 +138,18 @@ app.controller("historyCtrl",($scope,inqService,userService)=>{
 
         if(Object.keys($scope.allInq).length>0){
             // console.log($scope.allInq['-Kjs3Aj_BfMqilAUcgpc'].inquiryID);
-
+            console.log( $scope.allInq);
             for(k in $scope.allInq){
+                // console.log($scope.allInq[k].quotations != undefined);
+                // console.log($scope.users[$scope.allInq[k].inquiryOwner]!=undefined);
+                // console.log("           ");
 
                 if($scope.allInq[k].quotations != undefined && $scope.users[$scope.allInq[k].inquiryOwner]!=undefined){
+                    // console.log("very true");
                     for(var i =0; i< $scope.allInq[k].quotations.length; i++){
                         if($scope.allInq[k].quotations[i].payment!=undefined)
                         {
+
                             $scope.toAdd = $scope.allInq[k].quotations[i].payment;
                             $scope.toAdd.time = $scope.allInq[k].quotations[i].payment.paymentDate;
 
@@ -706,6 +715,10 @@ $urlRouterProvider.otherwise('home/inbox');
     .state('login',{
         url:'/login',
         templateUrl:"templates/login1.html"
+    })
+    .state('home.stats',{
+        url:'/stats',
+        templateUrl: "templates/stats.html"
     })
     // .state('/', {
     //     url: '/',

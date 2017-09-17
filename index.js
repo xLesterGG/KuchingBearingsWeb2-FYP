@@ -51,9 +51,13 @@ app.use('/css',express.static(__dirname + '/node_modules/imageviewer/dist'));
 app.use('/js',express.static(__dirname+ '/node_modules/angular-cookies/'));
 
 
-app.use('/css',express.static(__dirname+'/assets/emoji-picker/lib/css'));
-app.use('/js',express.static(__dirname+'/assets/emoji-picker/lib/js'));
-app.use('/img',express.static(__dirname+'/assets/emoji-picker/lib/img'));
+// app.use('/css',express.static(__dirname+'/assets/emoji-picker/lib/css'));
+// app.use('/js',express.static(__dirname+'/assets/emoji-picker/lib/js'));
+// app.use('/img',express.static(__dirname+'/assets/emoji-picker/lib/img'));
+
+app.use('/css',express.static(__dirname+'/node_modules/chartist/dist/'));
+app.use('/js',express.static(__dirname+'/node_modules/chartist/dist/'));
+
 
 
 app.get('/',(req,res)=>{
@@ -547,7 +551,7 @@ socket.on("connection",(client)=>{
 
                 }
 
-                console.log(data);
+                // console.log(data);
             }
 
 
