@@ -199,7 +199,7 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
     $scope.file_changed = function(element) {
         $scope.$apply(function(scope) {
 
-        var imgRef = defaultStorage.child($stateParams.id+'/'+element.files[0].name);
+        var imgRef = defaultStorage.child('photos'+ '/'+$stateParams.id+'/'+element.files[0].name);
 
         // mountainImagesRef.put(element.files[0]).then((snapshot)=>{
         // console.log('uploaded');

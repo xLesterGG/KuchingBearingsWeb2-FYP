@@ -432,7 +432,7 @@ socket.on("connection",(client)=>{
 
                         var data = inq;
                         data.lastMessage = msg;
-                        data.msgUnreadCountForMobile = unread;                        
+                        data.msgUnreadCountForMobile = unread;
 
 
                         var data1 = { // no status coz no need
@@ -590,19 +590,26 @@ socket.on("connection",(client)=>{
 
             // console.log(msg);
             var data = inq;
-            data.lastMessage = msg;
+            data.lastMessage = msg
+            // console.log(data.lastMessage.messageTime + 'aaa');
 
+
+            var data1 = JSON.parse(JSON.stringify(inq))
+            data1.lastMessage = JSON.parse(JSON.stringify(msg));
+            data1.lastMessage.messageTime = parseInt('-'+data1.lastMessage.messageTime);
 
 
             var update = {};
             var update1 = {};
 
 /**************************************************************************************/
+            // console.log(data.lastMessage.messageTime + 'aaa');
+            // console.log(data1.lastMessage.messageTime + 'bbb');
 
             update['/inquiries/'+ inq.inquiryID] = data;
             database.ref().update(update);
 
-            update1['/adinquiries/'+inq.inquiryOwner +'/'+inq.inquiryID] = data;
+            update1['/adinquiries/'+inq.inquiryOwner +'/'+inq.inquiryID] = data1;
             database.ref().update(update1);
 
 /**************************************************************************************/
@@ -625,13 +632,21 @@ socket.on("connection",(client)=>{
             var data = inq;
             data.lastMessage = msg;
 
+            var data1 = JSON.parse(JSON.stringify(inq))
+            data1.lastMessage = JSON.parse(JSON.stringify(msg));
+            data1.lastMessage.messageTime = parseInt('-'+data1.lastMessage.messageTime);
+
+
             var update = {};
             var update1 = {};
 /**************************************************************************************/
+            // console.log(data.lastMessage.messageTime + 'aaa');
+            // console.log(data1.lastMessage.messageTime + 'bbb');
+
             update['/inquiries/'+ inq.inquiryID] = data;
             database.ref().update(update);
 
-            update1['/adinquiries/'+inq.inquiryOwner +'/'+inq.inquiryID] = data;
+            update1['/adinquiries/'+inq.inquiryOwner +'/'+inq.inquiryID] = data1;
             database.ref().update(update1);
 /**************************************************************************************/
         }
