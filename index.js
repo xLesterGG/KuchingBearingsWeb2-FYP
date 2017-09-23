@@ -401,17 +401,17 @@ socket.on("connection",(client)=>{
                     }
 
 
-                    // var msg1 = {
-                    //     messageText: msg.messageText,
-                    //     messageTime : parseInt('-'+parseInt(new Date().getTime())),
-                    //     messageUser : msg.messageUser,
-                    //     messageRead: false,
-                    //     messageID:uid,
-                    //     inquiryOwner:inqOwner
-                    // }
+                    var msg1 = {
+                        messageText: msg.messageText,
+                        messageTime : parseInt('-'+parseInt(new Date().getTime())),
+                        messageUser : msg.messageUser,
+                        messageRead: false,
+                        messageID:uid,
+                        inquiryOwner:inqOwner
+                    }
 
-                    var msg1 = msg;
-                    msg1.messageTime = parseInt('-'+parseInt(new Date().getTime()));
+                    // var msg1 = msg;
+                    // msg1.messageTime = parseInt('-'+parseInt(new Date().getTime()));
 
 
 
@@ -432,16 +432,7 @@ socket.on("connection",(client)=>{
 
                         var data = inq;
                         data.lastMessage = msg;
-                        data.msgUnreadCountForMobile = unread;
-
-
-
-                        // console.log(data);
-                        // console.log('\n\n')
-                        // var x = inq;
-                        // x.lastMessage= msg;
-                        // x.msgUnreadCountForMobile = unread;
-                        // console.log(inq);
+                        data.msgUnreadCountForMobile = unread;                        
 
 
                         var data1 = { // no status coz no need
@@ -593,14 +584,6 @@ socket.on("connection",(client)=>{
     client.on("updateLastRead",(inq)=>{
 
         if(inq.lastMessage!= undefined && inq.lastMessage.messageUser!='admin'){
-            // var msg = {
-            //     messageText: inq.lastMessage.messageText,
-            //     messageTime : inq.lastMessage.messageTime,
-            //     messageUser : inq.lastMessage.messageUser,
-            //     messageRead : true,
-            //     messageID : inq.lastMessage.messageID,
-            //     inquiryOwner : inq.lastMessage.inquiryOwner
-            // }
 
             var msg = inq.lastMessage;
             msg.messageRead = true;
@@ -608,36 +591,6 @@ socket.on("connection",(client)=>{
             // console.log(msg);
             var data = inq;
             data.lastMessage = msg;
-
-            // if(inq.quotations!=undefined){
-            //     var data = {
-            //         inquiryPeoples: inq.inquiryPeoples,
-            //         inquiryName:inq.inquiryName,
-            //         inquiryID:inq.inquiryID,
-            //         inquiryOwner: inq.inquiryOwner,
-            //         lastMessage: msg,
-            //         bearings:inq.bearings,
-            //         quotations:inq.quotations,
-            //         inquiryTime: inq.inquiryTime,
-            //         status: inq.status
-            //     }
-            //
-            //
-            // }
-            // else{
-            //     var data = {
-            //         inquiryPeoples: inq.inquiryPeoples,
-            //         inquiryName:inq.inquiryName,
-            //         inquiryID:inq.inquiryID,
-            //         inquiryOwner: inq.inquiryOwner,
-            //         lastMessage: msg,
-            //         bearings:inq.bearings,
-            //         inquiryTime: inq.inquiryTime,
-            //         status:inq.status
-            //
-            //     }
-            //
-            // }
 
 
 
@@ -664,49 +617,13 @@ socket.on("connection",(client)=>{
         var inq = inquiries[inqID];
         // console.log(inq);
         if(inq.lastMessage!= undefined && inq.lastMessage.messageUser!='admin'){
-            // var msg = {
-            //     messageText: inq.lastMessage.messageText,
-            //     messageTime : inq.lastMessage.messageTime,
-            //     messageUser : inq.lastMessage.messageUser,
-            //     messageRead : true,
-            //     messageID: inq.lastMessage.messageID,
-            //     inquiryOwner : inq.lastMessage.inquiryOwner
-            // }
+
 
             var msg = inq.lastMessage;
             msg.messageRead = true;
 
             var data = inq;
             data.lastMessage = msg;
-
-
-            // if(inq.quotations!=undefined){
-            //     var data = {
-            //         inquiryPeoples: inq.inquiryPeoples,
-            //         inquiryName:inq.inquiryName,
-            //         inquiryID:inq.inquiryID,
-            //         inquiryOwner: inq.inquiryOwner,
-            //         lastMessage: msg,
-            //         bearings:inq.bearings,
-            //         quotations:inq.quotations,
-            //         inquiryTime: inq.inquiryTime,
-            //         status:inq.status
-            //     }
-            // }
-            // else{
-            //     var data = {
-            //         inquiryPeoples: inq.inquiryPeoples,
-            //         inquiryName:inq.inquiryName,
-            //         inquiryID:inq.inquiryID,
-            //         inquiryOwner: inq.inquiryOwner,
-            //         lastMessage: msg,
-            //         bearings:inq.bearings,
-            //         inquiryTime: inq.inquiryTime,
-            //         status:inq.status
-            //     }
-            // }
-
-
 
             var update = {};
             var update1 = {};
