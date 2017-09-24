@@ -142,7 +142,7 @@
                         </div>
 
                         <div ng-if="msg.link!=undefined && msg.link!=''" class="bubble you">
-                            <span style="white-space: pre-line"><img class="image" style="width:200px; height:auto" ng-src="{{msg.link}}"ng-click="view()" /></span>
+                            <span style="white-space: pre-line"><img class="image" style="width:200px; height:auto" ng-src="{{msg.link}}"ng-click="view()" data-toggle="tooltip" data-placement="left" title="{{msg.messageTime|| secondsToDateTime | date:'short'}}"/></span>
                         </div>
 
 
@@ -154,7 +154,7 @@
                         </div>
 
                         <div ng-if="msg.link!=undefined && msg.link!=''" class="bubble me">
-                            <span style="white-space: pre-line"><img class="image" style="width:200px; height:auto" ng-src="{{msg.link}}" ng-click="view()"/></span>
+                            <span style="white-space: pre-line"><img class="image" style="width:200px; height:auto" ng-src="{{msg.link}}" ng-click="view()" data-toggle="tooltip" data-placement="right" title="{{msg.messageTime|| secondsToDateTime | date:'short'}}"/></span>
                         </div>
 
 
