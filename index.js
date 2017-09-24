@@ -375,8 +375,17 @@ socket.on("connection",(client)=>{
                         messageUser : msg.sender,
                         messageRead: false,
                         messageID:uid,
-                        inquiryOwner:inqOwner
+                        inquiryOwner:inqOwner,
+                        link:''
                     });
+
+                    // messageText: "Image",
+                    // messageTime : parseInt(new Date().getTime()),
+                    // messageUser : sender,
+                    // messageRead: false,
+                    // messageID:uid,
+                    // inquiryOwner:inq.inquiryOwner,
+                    // link: link
 
 
                     database.ref('/adconversations/'+inqOwner+'/'+inq.inquiryID+'?'+inq.inquiryName+'/'+a.key).set({
@@ -385,7 +394,8 @@ socket.on("connection",(client)=>{
                         messageUser : msg.sender,
                         messageRead: false,
                         messageID:uid,
-                        inquiryOwner:inqOwner
+                        inquiryOwner:inqOwner,
+                        link:''
                     });
 
 /**************************************************************************************/
@@ -397,7 +407,8 @@ socket.on("connection",(client)=>{
                         messageUser : msg.sender,
                         messageRead: false,
                         messageID:uid,
-                        inquiryOwner:inqOwner
+                        inquiryOwner:inqOwner,
+                        link:''
                     }
 
 
@@ -407,7 +418,8 @@ socket.on("connection",(client)=>{
                         messageUser : msg.messageUser,
                         messageRead: false,
                         messageID:uid,
-                        inquiryOwner:inqOwner
+                        inquiryOwner:inqOwner,
+                        link:''
                     }
 
                     // var msg1 = msg;
