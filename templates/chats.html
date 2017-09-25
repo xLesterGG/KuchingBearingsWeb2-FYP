@@ -76,6 +76,10 @@
                 Inquiry title:  {{currentInq.inquiryName}}
 
                 <div class="dropdown float-right">
+
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">See more</button>
+
+
                   <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Move to
                   </button>
@@ -87,12 +91,13 @@
                   </div>
                 </div>
 
+                <!-- <a href class="text-white" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">See more</a> -->
                 <!-- <button class="btn btn-light btn-sm text-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     See more
                 </button> -->
             </h4>
 
-            <div class="card-body" id="collapseExample">
+            <div class="card-body collapse" id="collapseExample" >
                 <h4 class="class-title">{{currentUser.name}} <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#mmmodal">Details</button></h4>
                 <h6 class="card-subtitle mb-2 text-muted">{{currentUser.email}}</h6>
 
