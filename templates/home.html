@@ -1,4 +1,4 @@
-<div data-ng-controller="chatCtrl" >
+<div data-ng-controller="chatCtrl" id="main">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
@@ -58,8 +58,18 @@
             </div>
         </div>
     </nav> -->
+    <!-- <div class="container-fluid" style="background-color:white;height:100vh"> -->
 
-    <div class="container-fluid" style="background-color:white;height:100vh">
+    <div class="container-fluid" style="background-color:white;">
         <div ui-view></div>
     </div>
 </div>
+
+<!-- <script language="javascript">
+    function autoResizeDiv()
+    {
+        document.getElementById('main').style.height = window.innerHeight +'px';
+    }
+    window.onresize = autoResizeDiv;
+    autoResizeDiv();
+</script> -->

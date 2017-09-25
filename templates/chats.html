@@ -134,7 +134,7 @@
 
         <div id="convo" data-ng-model="convo" class="row">
 
-            <div class="col-md-12">
+            <div class="col-md-12 scrollbar" id="style-1">
                 <div data-ng-repeat="msg in messages |filter: filterR track by $index">
                     <div ng-if="msg.messageUser!='admin'">
                         <div ng-if="msg.link==undefined || msg.link==''" class="bubble you" data-toggle="tooltip" data-placement="left" title="{{msg.messageTime|| secondsToDateTime | date:'short'}}">
@@ -196,7 +196,7 @@
                     <!-- <input class="form-control col-md-9" placeholder="Type a message" data-ng-click="updateRead()" type="text" data-ng-model="inputMessage"/> -->
 
 
-                    <textarea class="form-control col-md-8" id="usermsg" placeholder="Type a message" data-ng-click="updateRead()" data-ng-model="inputMessage"></textarea>
+                    <textarea class="form-control col-md" id="usermsg" placeholder="Type a message" data-ng-click="updateRead()" data-ng-model="inputMessage"></textarea>
 
                     <!-- <input class="form-control col-md-10" placeholder="Type a message" data-ng-click="updateRead()" type="text" data-emojiable="true" data-ng-model="inputMessage"/> -->
                     <button class="btn btn-primary" data-ng-model="inputMessage">Send</button>

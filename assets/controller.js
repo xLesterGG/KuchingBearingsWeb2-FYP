@@ -190,6 +190,7 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
         messagingSenderId: "1033971329142"
     };
 
+
     var fbApp = firebase.initializeApp(config);
     var defaultStorage  = fbApp.storage().ref();
 
@@ -407,7 +408,10 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
         $cookieStore.remove('kbLogged');
         // $log.log('Cookie string: ' + $cookieStore.get('kbLogged'));
         // socket.emit("logoutUser");
-        $state.go('login');
+        // $state.go('login');
+
+        window.location.reload();
+
     };
 
     $scope.rname = '';
