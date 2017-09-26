@@ -121,7 +121,7 @@ socket.on("connection",(client)=>{
                  users[x] = res.val()[x];
             }
 
-            socket.sockets.emit("updateUserList",users);
+            // socket.sockets.emit("updateUserList",users);
 
             // console.log(users);
         });
@@ -668,7 +668,21 @@ socket.on("connection",(client)=>{
     client.on("registerUser",(email,password)=>{
         firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user) {
            // user signed up
-           client.emit("registersuccess");
+
+           var userD = {
+               email:email,
+               type:"admin"
+           };
+           var update = {};
+           update['/users/'+user.uid] = userD;
+           database.ref().update(update).then(()=>{
+               client.emit("registersuccess");
+
+           });
+
+
+
+
         }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
@@ -679,9 +693,10 @@ socket.on("connection",(client)=>{
     });
 
     client.on("loginUser",(email,password)=>{
-        console.log('logging in');
+        console.log('user with '+ email + ' trying to log in');
         firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
           // Handle Errors here.
+        //   console.log(error);
           var errorCode = error.code;
           var errorMessage = error.message;
 
@@ -692,16 +707,62 @@ socket.on("connection",(client)=>{
           }else{
               client.emit("errorMsg",errorMessage);
           }
-        //   console.log(errorCode);
 
         });
 
         firebase.auth().onAuthStateChanged(user => {
             if(user!=undefined) {
-                console.log('logged in');
+                console.log('user logged in');
             // window.location = 'home.html'; //After successful login, user will be redirected to home.html
-                currentUser = user;
-                client.emit("redirectToInbox",user);
+                currentUser = user
+
+
+
+
+                // var y = database.ref('/users').once('value').then((res)=>{
+                //     for(var x in res.val()){
+                //          if(res.val()[x].email == email){
+                //              if('type' in res.val()[x] && res.val()[x].type == 'admin')
+                //              client.emit("redirectToInbox",user);
+                //          }
+                //     }
+                //
+                // });
+
+
+                // var us = {};
+
+                var z = database.ref('/users').once('value')
+                .then((res)=>{
+                    var b = false;
+
+                    for(var x in res.val()){
+                        //  us[x] = res.val()[x];
+                        if(res.val()[x].email == email && 'type' in res.val()[x] && res.val()[x].type =='admin'){
+                            b = true;
+                            break;
+                        }
+                    }
+
+                    if(b){
+                        client.emit("redirectToInbox",user);
+                    }else{
+                        client.emit("notAdmin");
+                    }
+                });
+
+
+                // z.on('value',(res)=>{
+                //     for(var x in res.val()){
+                //          us[x] = res.val()[x];
+                //     }
+                // });
+
+
+
+
+                // console.log(users);
+
             }else{
                 // console.log('logged out');
                 // client.emit("redirectToLogin1");

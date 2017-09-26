@@ -53,9 +53,9 @@ app.controller("loginCtrl",($scope,$state,$cookieStore)=>{
         socket.emit("resetPassword",email);
     };
 
-    // socket.on("errorMsg",(err)=>{
-    //     alert(err);
-    // });
+    socket.on("errorMsg",(err)=>{
+        alert(err);
+    });
 
 
 
@@ -68,6 +68,11 @@ app.controller("loginCtrl",($scope,$state,$cookieStore)=>{
     socket.on("registersuccess",()=>{
         location.reload();
         alert("Registered successfully!");
+    });
+
+    socket.on("notAdmin",()=>{
+        alert("You are not an admin. ");
+        location.reload();
     });
 
     socket.on("resetSuccessful",(mess)=>{
