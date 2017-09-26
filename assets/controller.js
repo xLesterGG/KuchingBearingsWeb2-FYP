@@ -221,6 +221,8 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
 
 
         $scope.upload = ()=>{
+            $('#imgModal').modal('hide');
+
             var uploadTask = imgRef.put(element.files[0]);
             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,function(snapshot) {
 
@@ -238,7 +240,6 @@ app.controller("chatCtrl",($scope, $log,$stateParams, messageService,$state,inqS
                 socket.emit("sendImage", downloadURL,$stateParams.id);
 
 
-                $('#imgModal').modal('hide');
 
 
                 // $scope.sendMessage2 = ()=>{
